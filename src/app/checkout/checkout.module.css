@@ -141,23 +141,47 @@
   font-size: 18px;
 }
 
-.bankNotice {
+/* 결제 수단별 상세 영역 */
+.methodDetailArea {
   margin-top: 20px;
-  padding: 20px;
+}
+
+.detailBox {
+  padding: 25px;
   background-color: #f9f9f9;
-  border-radius: 4px;
+  border-radius: 8px;
+  border: 1px solid #eee;
   font-size: 14px;
 }
 
-.bankNotice strong {
-  color: #2d5a27;
+.detailBox p {
+  font-weight: 700;
+  margin-bottom: 10px;
 }
 
-.bankNotice span {
-  display: block;
-  margin-top: 8px;
+.detailBox span {
   font-size: 12px;
   color: #888;
+}
+
+.kakaoBorder {
+  border-left: 5px solid #FEE500;
+}
+
+.naverBorder {
+  border-left: 5px solid #03C75A;
+}
+
+.tossBorder {
+  border-left: 5px solid #0064FF;
+}
+
+.cardSelect {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
 }
 
 /* 요약 카드 */

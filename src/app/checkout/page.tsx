@@ -37,7 +37,7 @@ function CheckoutContent() {
       
       <div className={styles.checkoutContainer}>
         <div className={styles.leftCol}>
-          {/* 1. 배송 정보 (교보문고 스타일) */}
+          {/* 1. 배송 정보 */}
           <section className={styles.section}>
             <div className={styles.sectionHeader}>
               <h3>배송정보</h3>
@@ -85,7 +85,7 @@ function CheckoutContent() {
             </form>
           </section>
 
-          {/* 2. 결제 수단 (다양화) */}
+          {/* 2. 결제 수단 (연동 UI 강화) */}
           <section className={styles.section}>
             <div className={styles.sectionHeader}>
               <h3>결제수단</h3>
@@ -128,12 +128,45 @@ function CheckoutContent() {
               </button>
             </div>
 
-            {paymentMethod === 'bank' && (
-              <div className={styles.bankNotice}>
-                <p>기업은행 <strong>971-018442-02-019</strong> (예금주: 정준호)</p>
-                <span>* 주문 후 24시간 이내에 입금되지 않으면 자동 취소됩니다.</span>
-              </div>
-            )}
+            {/* 결제 수단별 상세 안내 연동 UI */}
+            <div className={styles.methodDetailArea}>
+              {paymentMethod === 'kakaopay' && (
+                <div className={`${styles.detailBox} ${styles.kakaoBorder}`}>
+                  <p>카카오페이 결제창에서 결제를 진행합니다.</p>
+                  <span>* 카카오톡 앱을 통해 간편하게 결제할 수 있습니다.</span>
+                </div>
+              )}
+              {paymentMethod === 'naverpay' && (
+                <div className={`${styles.detailBox} ${styles.naverBorder}`}>
+                  <p>네이버페이 포인트/머니 및 등록된 카드로 결제합니다.</p>
+                  <span>* 네이버 아이디로 간편하게 결제하세요.</span>
+                </div>
+              )}
+              {paymentMethod === 'toss' && (
+                <div className={`${styles.detailBox} ${styles.tossBorder}`}>
+                  <p>토스 앱을 통해 빠르고 안전하게 결제합니다.</p>
+                </div>
+              )}
+              {paymentMethod === 'card' && (
+                <div className={styles.detailBox}>
+                  <p>모든 신용/체크카드 결제가 가능합니다.</p>
+                  <select className={styles.cardSelect}>
+                    <option>카드를 선택해주세요</option>
+                    <option>현대카드</option>
+                    <option>삼성카드</option>
+                    <option>KB국민카드</option>
+                    <option>신한카드</option>
+                  </select>
+                </div>
+              )}
+              {paymentMethod === 'bank' && (
+                <div className={styles.detailBox}>
+                  <p>계좌번호: 기업은행 <strong>971-018442-02-019</strong></p>
+                  <p>예금주: 정준호</p>
+                  <span>* 주문 후 24시간 이내에 입금되지 않으면 자동 취소됩니다.</span>
+                </div>
+              )}
+            </div>
           </section>
         </div>
 
