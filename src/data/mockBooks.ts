@@ -14,6 +14,19 @@ export interface Book {
   isBest?: boolean;
 }
 
+const VALID_IMAGES = [
+  "https://images.unsplash.com/photo-1544947950-fa07a98d237f?q=80&w=400&h=600&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1512820790803-83ca734da794?q=80&w=400&h=600&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1543004218-ee141104638e?q=80&w=400&h=600&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1495446815901-a7297e633e8d?q=80&w=400&h=600&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1589998059171-988d887df646?q=80&w=400&h=600&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1532012197267-da84d127e765?q=80&w=400&h=600&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1497633762265-9d179a990aa6?q=80&w=400&h=600&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1511108690759-009324a90311?q=80&w=400&h=600&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1541963463532-d68292c34b19?q=80&w=400&h=600&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1516979187457-637abb4f9353?q=80&w=400&h=600&auto=format&fit=crop"
+];
+
 export const MOCK_BOOKS: Book[] = [
   {
     id: "1",
@@ -24,7 +37,7 @@ export const MOCK_BOOKS: Book[] = [
     price: 15000,
     description: "육식을 거부하며 나무가 되고자 하는 여자의 이야기.",
     category: "소설",
-    coverImage: "https://images.unsplash.com/photo-1544947950-fa07a98d237f?q=80&w=400&h=600&auto=format&fit=crop",
+    coverImage: VALID_IMAGES[0],
     rating: 4.9,
     reviewCount: 2540,
     tags: ["맨부커상", "현대소설"],
@@ -39,7 +52,7 @@ export const MOCK_BOOKS: Book[] = [
     price: 14000,
     description: "광주민주화운동을 소재로 한 한강 작가의 장편소설.",
     category: "소설",
-    coverImage: "https://images.unsplash.com/photo-1512820790803-83ca734da794?q=80&w=400&h=600&auto=format&fit=crop",
+    coverImage: VALID_IMAGES[1],
     rating: 4.9,
     reviewCount: 1820,
     tags: ["역사소설", "감동"],
@@ -54,7 +67,7 @@ export const MOCK_BOOKS: Book[] = [
     price: 13000,
     description: "감정을 느끼지 못하는 소년의 특별한 성장 이야기.",
     category: "소설",
-    coverImage: "https://images.unsplash.com/photo-1543004218-ee141104638e?q=80&w=400&h=600&auto=format&fit=crop",
+    coverImage: VALID_IMAGES[2],
     rating: 4.8,
     reviewCount: 3100,
     tags: ["성장소설", "베스트셀러"],
@@ -69,7 +82,7 @@ export const MOCK_BOOKS: Book[] = [
     price: 14000,
     description: "고단한 시대를 살아가는 우리에게 전하는 따뜻한 위로.",
     category: "소설",
-    coverImage: "https://images.unsplash.com/photo-1495446815901-a7297e633e8d?q=80&w=400&h=600&auto=format&fit=crop",
+    coverImage: VALID_IMAGES[3],
     rating: 4.8,
     reviewCount: 5600,
     tags: ["힐링", "K-소설"],
@@ -84,7 +97,7 @@ export const MOCK_BOOKS: Book[] = [
     price: 13800,
     description: "잠들어야만 입장 가능한 마을의 꿈 파는 가게 이야기.",
     category: "소설",
-    coverImage: "https://images.unsplash.com/photo-1589998059171-988d887df646?q=80&w=400&h=600&auto=format&fit=crop",
+    coverImage: VALID_IMAGES[4],
     rating: 4.7,
     reviewCount: 4200,
     tags: ["판타지", "베스트셀러"],
@@ -92,19 +105,18 @@ export const MOCK_BOOKS: Book[] = [
   }
 ];
 
-// 105권까지 안정적인 고화질 자연/책 이미지로 채움
 for (let i = 6; i <= 105; i++) {
   const categories = ["소설", "에세이", "경제경영", "자기계발", "인문"];
   MOCK_BOOKS.push({
     id: i.toString(),
-    title: `숲의 지혜 ${i}권`,
-    author: "책갈피 숲 저자",
-    publisher: "책갈피 숲 출판",
+    title: `숲의 지혜 ${i}권: 깊은 숲의 목소리`,
+    author: "책갈피 숲 편집부",
+    publisher: "북포레스트",
     publishDate: "2024-01-01",
-    price: 15000 + i,
-    description: "이 책은 숲의 고요함과 지혜를 담고 있습니다.",
+    price: 15000 + (i * 10),
+    description: "책갈피 숲에서만 만날 수 있는 평온한 지혜의 정수입니다.",
     category: categories[i % 5],
-    coverImage: `https://images.unsplash.com/photo-${1500000000000 + (i * 100000)}?q=80&w=400&h=600&auto=format&fit=crop`,
+    coverImage: VALID_IMAGES[i % 10],
     rating: 4.5,
     reviewCount: 100 + i,
     tags: ["베스트셀러", "추천도서"]
