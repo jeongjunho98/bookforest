@@ -16,11 +16,11 @@ export default function LoginPage() {
     
     if (userId === 'bookforestadmin' && password === 'bookforest2026') {
       login(userId, '관리자', '정준호');
-      alert('관리자 센터에 접속합니다.');
-      router.push('/admin');
+      alert('관리자 계정으로 로그인 되었습니다.'); // 문구 수정
+      router.push('/'); // 메인 화면으로 이동하도록 수정
     } else if (userId && password) {
       login(userId, '회원', userId);
-      alert(`${userId}님, 환영합니다!`);
+      alert(`${userId}님, 반갑습니다!`);
       router.push('/');
     } else {
       alert('아이디와 비밀번호를 입력해주세요.');
