@@ -13,9 +13,9 @@ export default function Home() {
         <div className={`container ${styles.heroContent}`}>
           <h1>당신만의 평온한 책갈피, 책갈피 숲</h1>
           <p>숲속을 거니는 듯한 차분한 탐색과 만남</p>
-          <SearchBar />
-        </div>
-      </section>
+          <Link href="/books">
+            <button className={styles.ctaButton}>도서 탐색하기</button>
+          </Link>
 
       {/* 베스트셀러 섹션 */}
       <section className={`container ${styles.section}`}>

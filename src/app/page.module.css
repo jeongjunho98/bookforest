@@ -15,7 +15,26 @@
 .heroContent p {
   font-size: 18px;
   color: #666;
-  margin-bottom: 40px;
+  margin-bottom: 30px;
+}
+
+.ctaButton {
+  background-color: var(--primary-forest);
+  color: #fff;
+  padding: 15px 40px;
+  border-radius: 30px;
+  font-size: 18px;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-bottom: 20px;
+}
+
+.ctaButton:hover {
+  background-color: #1e3d1a;
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }
 
 .section {
