@@ -17,6 +17,7 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <body>
+        <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js" async></script>
         <CartProvider>
           <Header />
           <main style={{ minHeight: 'calc(100vh - 80px)' }}>

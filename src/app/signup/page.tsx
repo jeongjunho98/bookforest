@@ -4,6 +4,12 @@ import styles from "./signup.module.css";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
+declare global {
+  interface Window {
+    daum: any;
+  }
+}
+
 export default function SignupPage() {
   const router = useRouter();
   const [formData, setFormData] = useState({
@@ -16,7 +22,7 @@ export default function SignupPage() {
     birthYear: '',
     birthMonth: '',
     birthDay: '',
-    gender: 'M', // 기본값을 남성으로 설정
+    gender: 'M',
     phoneAgency: 'SKT',
     phone1: '010',
     phone2: '',
@@ -26,13 +32,39 @@ export default function SignupPage() {
     detailAddress: ''
   });
 
-  const [agreements, setAgreements] = useState({
-    terms: false,
-    privacy: false,
-    marketing: false
-  });
-
+  const [agreements, setAgreements] = useState({ terms: false, privacy: false, marketing: false });
   const isAllChecked = agreements.terms && agreements.privacy && agreements.marketing;
+
+  // 1. 아이디 중복확인
+  const handleIdCheck = () => {
+    if (!formData.userId) {
+      alert('아이디를 입력해주세요.');
+      return;
+    }
+    alert(`[${formData.userId}]는 사용 가능한 아이디입니다.`);
+  };
+
+  // 2. 휴대폰 인증요청
+  const handlePhoneAuth = () => {
+    if (!formData.phone2 || !formData.phone3) {
+      alert('휴대폰 번호를 모두 입력해주세요.');
+      return;
+    }
+    alert('인증번호가 발송되었습니다. (테스트 환경에서는 자동으로 인증 완료 처리됩니다.)');
+  };
+
+  // 3. 실제 주소찾기 (카카오 API)
+  const handleAddressSearch = () => {
+    new window.daum.Postcode({
+      oncomplete: function(data: any) {
+        setFormData(prev => ({
+          ...prev,
+          zipCode: data.zonecode,
+          baseAddress: data.address
+        }));
+      }
+    }).open();
+  };
 
   const handleAllCheck = (checked: boolean) => {
     setAgreements({ terms: checked, privacy: checked, marketing: checked });
@@ -52,7 +84,7 @@ export default function SignupPage() {
       alert('필수 약관에 동의해주세요.');
       return;
     }
-    alert(`🌲 책갈피 숲 회원가입 완료!\n\n아이디: ${formData.userId}\n성별: ${formData.gender === 'M' ? '남성' : '여성'}`);
+    alert(`🌲 책갈피 숲 회원가입 완료!\n\n아이디: ${formData.userId}\n주소: [${formData.zipCode}] ${formData.baseAddress}`);
     router.push('/login');
   };
 
@@ -65,14 +97,13 @@ export default function SignupPage() {
         </div>
 
         <form className={styles.signupForm} onSubmit={handleSubmit}>
-          {/* 계정정보 섹션 */}
           <section className={styles.section}>
             <h3 className={styles.sectionTitle}>계정정보</h3>
             <div className={styles.inputRow}>
               <label>아이디 <span className={styles.star}>*</span></label>
               <div className={styles.inputGroup}>
                 <input type="text" placeholder="6~20자 영문, 숫자 조합" required className={styles.flexInput} value={formData.userId} onChange={(e) => setFormData({...formData, userId: e.target.value})} />
-                <button type="button" className={styles.subBtn}>중복확인</button>
+                <button type="button" className={styles.subBtn} onClick={handleIdCheck}>중복확인</button>
               </div>
             </div>
             <div className={styles.inputRow}>
@@ -84,7 +115,6 @@ export default function SignupPage() {
             </div>
           </section>
 
-          {/* 개인정보 섹션 (성별 항목 수정) */}
           <section className={styles.section}>
             <h3 className={styles.sectionTitle}>개인정보</h3>
             <div className={styles.inputRow}>
@@ -115,32 +145,13 @@ export default function SignupPage() {
                 <input type="number" placeholder="일" value={formData.birthDay} onChange={(e) => setFormData({...formData, birthDay: e.target.value})} />
               </div>
             </div>
-
-            {/* 수정된 성별 선택란 */}
             <div className={styles.inputRow}>
               <label>성별 <span className={styles.star}>*</span></label>
               <div className={styles.radioGroup}>
-                <label style={{ cursor: 'pointer' }}>
-                  <input 
-                    type="radio" 
-                    name="gender" 
-                    value="M" 
-                    checked={formData.gender === 'M'}
-                    onChange={() => setFormData({...formData, gender: 'M'})} 
-                  /> 남성
-                </label>
-                <label style={{ cursor: 'pointer' }}>
-                  <input 
-                    type="radio" 
-                    name="gender" 
-                    value="F" 
-                    checked={formData.gender === 'F'}
-                    onChange={() => setFormData({...formData, gender: 'F'})} 
-                  /> 여성
-                </label>
+                <label><input type="radio" name="gender" checked={formData.gender === 'M'} onChange={() => setFormData({...formData, gender: 'M'})} /> 남성</label>
+                <label><input type="radio" name="gender" checked={formData.gender === 'F'} onChange={() => setFormData({...formData, gender: 'F'})} /> 여성</label>
               </div>
             </div>
-
             <div className={styles.inputRow}>
               <label>휴대폰 <span className={styles.star}>*</span></label>
               <div className={styles.phoneGroup}>
@@ -152,21 +163,20 @@ export default function SignupPage() {
                   <input type="tel" placeholder="0000" value={formData.phone2} onChange={(e) => setFormData({...formData, phone2: e.target.value})} />
                   <input type="tel" placeholder="0000" value={formData.phone3} onChange={(e) => setFormData({...formData, phone3: e.target.value})} />
                 </div>
-                <button type="button" className={styles.subBtn}>인증요청</button>
+                <button type="button" className={styles.subBtn} onClick={handlePhoneAuth}>인증요청</button>
               </div>
             </div>
           </section>
 
-          {/* 주소/약관동의 생략 (기존 유지) */}
           <section className={styles.section}>
             <h3 className={styles.sectionTitle}>배송 주소</h3>
             <div className={styles.addressGroup}>
               <div className={styles.zipCodeRow}>
-                <input type="text" placeholder="우편번호" readOnly />
-                <button type="button" className={styles.subBtn}>주소찾기</button>
+                <input type="text" placeholder="우편번호" readOnly value={formData.zipCode} />
+                <button type="button" className={styles.subBtn} onClick={handleAddressSearch}>주소찾기</button>
               </div>
-              <input type="text" placeholder="기본 주소" className={styles.fullInput} readOnly />
-              <input type="text" placeholder="상세 주소 입력" className={styles.fullInput} onChange={(e) => setFormData({...formData, detailAddress: e.target.value})} />
+              <input type="text" placeholder="기본 주소" className={styles.fullInput} value={formData.baseAddress} readOnly />
+              <input type="text" placeholder="상세 주소 입력" className={styles.fullInput} value={formData.detailAddress} onChange={(e) => setFormData({...formData, detailAddress: e.target.value})} />
             </div>
           </section>
 
