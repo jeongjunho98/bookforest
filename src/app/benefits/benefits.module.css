@@ -5,8 +5,9 @@
 
 .headerArea h1 {
   font-size: 32px;
-  color: var(--primary-forest);
+  color: #2d5a27;
   margin-bottom: 15px;
+  font-family: 'Noto Serif KR', serif;
 }
 
 .benefitGrid {
@@ -21,22 +22,55 @@
   background-color: #fff;
   padding: 40px;
   border: 1px solid #eee;
-  border-radius: 15px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  border-radius: 20px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   transition: transform 0.3s ease;
 }
 
 .benefitCard:hover {
-  transform: translateY(-5px);
+  transform: translateY(-10px);
+}
+
+.iconArea {
+  font-size: 40px;
+  margin-bottom: 20px;
 }
 
 .benefitCard h3 {
-  font-size: 20px;
-  color: var(--primary-forest);
+  font-size: 22px;
+  color: #2d5a27;
   margin-bottom: 15px;
 }
 
 .benefitCard p {
   color: #666;
   line-height: 1.6;
+  margin-bottom: 30px;
+  min-height: 50px;
+}
+
+.actionBtn {
+  width: 100%;
+  padding: 12px 0;
+  background-color: #2d5a27;
+  color: #fff;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.actionBtn:hover {
+  background-color: #1e3d1a;
+}
+
+@media (max-width: 768px) {
+  .benefitGrid {
+    grid-template-columns: 1fr;
+  }
 }
