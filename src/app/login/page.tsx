@@ -1,11 +1,13 @@
 "use client";
+import { useState } from 'react';
 import styles from "./login.module.css";
 import Link from "next/link";
 
 export default function LoginPage() {
+  const [loading, setLoading] = useState(false);
+
   const handleSocialLogin = (provider: string) => {
     alert(`${provider} 로그인을 시작합니다. (실제 연동을 위해선 Supabase 설정이 필요합니다.)`);
-    // 실제 구현 시: supabase.auth.signInWithOAuth({ provider: 'kakao' })
   };
 
   return (
@@ -19,22 +21,13 @@ export default function LoginPage() {
           <p className={styles.subtitle}>간편하게 로그인하고 당신만의 책갈피를 찾아보세요.</p>
 
           <div className={styles.socialGroup}>
-            <button 
-              className={`${styles.socialBtn} ${styles.kakao}`}
-              onClick={() => handleSocialLogin('kakao')}
-            >
+            <button className={`${styles.socialBtn} ${styles.kakao}`} onClick={() => handleSocialLogin('kakao')}>
               <span className={styles.icon}>🟡</span> 카카오로 시작하기
             </button>
-            <button 
-              className={`${styles.socialBtn} ${styles.naver}`}
-              onClick={() => handleSocialLogin('naver')}
-            >
+            <button className={`${styles.socialBtn} ${styles.naver}`} onClick={() => handleSocialLogin('naver')}>
               <span className={styles.icon}>🟢</span> 네이버로 시작하기
             </button>
-            <button 
-              className={`${styles.socialBtn} ${styles.google}`}
-              onClick={() => handleSocialLogin('google')}
-            >
+            <button className={`${styles.socialBtn} ${styles.google}`} onClick={() => handleSocialLogin('google')}>
               <span className={styles.icon}>⚪</span> 구글로 시작하기
             </button>
           </div>
@@ -52,7 +45,11 @@ export default function LoginPage() {
           <div className={styles.footerLinks}>
             <Link href="/signup">회원가입</Link>
             <span className={styles.dot}>·</span>
-            <Link href="/find-password">비밀번호 찾기</Link>
+            <Link href="/account-recovery">아이디/비밀번호 찾기</Link>
+          </div>
+
+          <div className={styles.nonMemberArea}>
+            <Link href="/non-member-order">비회원 주문조회</Link>
           </div>
         </div>
       </div>
