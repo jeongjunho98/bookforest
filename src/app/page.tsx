@@ -16,6 +16,9 @@ export default function Home() {
           <Link href="/books">
             <button className={styles.ctaButton}>도서 탐색하기</button>
           </Link>
+          <SearchBar />
+        </div>
+      </section>
 
       {/* 베스트셀러 섹션 */}
       <section className={`container ${styles.section}`}>
