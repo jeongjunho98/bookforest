@@ -19,10 +19,6 @@
   margin-bottom: 10px;
 }
 
-.signupHeader p {
-  color: #888;
-}
-
 .section {
   margin-bottom: 50px;
 }
@@ -53,16 +49,22 @@
   color: #ff4d4d;
 }
 
-.inputGroup {
+.inputGroup, .emailGroup {
   flex: 1;
   display: flex;
   gap: 10px;
+  align-items: center;
 }
 
-.flexInput {
+.flexInput, .emailGroup input, .emailGroup select {
   flex: 1;
   padding: 12px;
   border: 1px solid #ddd;
+  outline: none;
+}
+
+.at {
+  color: #888;
 }
 
 .inputStack {
@@ -75,12 +77,14 @@
 .inputStack input {
   padding: 12px;
   border: 1px solid #ddd;
+  outline: none;
 }
 
 .fullInput {
   flex: 1;
   padding: 12px;
   border: 1px solid #ddd;
+  outline: none;
 }
 
 .birthGroup {
@@ -89,8 +93,8 @@
   gap: 10px;
 }
 
-.birthGroup input {
-  width: 33%;
+.birthGroup input, .birthGroup select {
+  flex: 1;
   padding: 12px;
   border: 1px solid #ddd;
   text-align: center;
@@ -133,6 +137,7 @@
   color: #fff;
   font-size: 13px;
   white-space: nowrap;
+  border-radius: 2px;
 }
 
 .addressGroup {
@@ -169,6 +174,9 @@
 .checkItem {
   margin-bottom: 12px;
   font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 .submitBtn {
@@ -190,8 +198,5 @@
   .inputRow label {
     width: 100%;
     margin-bottom: 8px;
-  }
-  .signupWrapper {
-    padding: 20px;
   }
 }
