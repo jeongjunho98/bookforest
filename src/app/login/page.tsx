@@ -7,11 +7,11 @@ import { supabase } from "@/lib/supabase";
 export default function LoginPage() {
   const [loading, setLoading] = useState(false);
 
-  const handleSocialLogin = async (provider: 'kakao' | 'naver' | 'google') => {
+  const handleSocialLogin = async (provider: string) => {
     setLoading(true);
     try {
       const { error } = await supabase.auth.signInWithOAuth({
-        provider: provider,
+        provider: provider as any,
         options: {
           redirectTo: `${window.location.origin}/auth/callback`,
         },
