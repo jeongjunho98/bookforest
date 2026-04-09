@@ -15,16 +15,10 @@
 .bookCover {
   width: 100%;
   aspect-ratio: 2/3;
-  background-color: #f0f4f0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 18px;
-  color: #777;
+  position: relative;
   border-radius: 8px;
+  overflow: hidden;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-  text-align: center;
-  padding: 20px;
 }
 
 .infoWrapper {
@@ -100,6 +94,7 @@
   font-weight: 700;
   border-radius: 8px;
   transition: all 0.3s ease;
+  cursor: pointer;
 }
 
 .cartBtn {
@@ -138,6 +133,7 @@
 
 .bottomSection {
   border-top: 1px solid #eee;
+  margin-top: 40px;
 }
 
 .tabNav {
@@ -153,6 +149,9 @@
   font-weight: 600;
   color: #888;
   position: relative;
+  background: none;
+  border: none;
+  cursor: pointer;
 }
 
 .tabNav .activeTab {
@@ -169,10 +168,10 @@
   background-color: var(--primary-forest);
 }
 
-.contentArea h2 {
+.tabContent h2 {
   font-size: 24px;
   color: var(--primary-forest);
-  margin-bottom: 20px;
+  margin-bottom: 25px;
   font-family: 'Noto Serif KR', serif;
 }
 
@@ -181,4 +180,37 @@
   line-height: 1.8;
   color: #444;
   white-space: pre-wrap;
+}
+
+.tocList {
+  list-style: decimal;
+  padding-left: 20px;
+}
+
+.tocList li {
+  font-size: 16px;
+  margin-bottom: 15px;
+  color: #555;
+}
+
+.reviewPlaceholder {
+  text-align: center;
+  padding: 60px 0;
+  background-color: #f9fbf9;
+  border-radius: 12px;
+}
+
+.reviewPlaceholder p {
+  color: #888;
+  margin-bottom: 20px;
+}
+
+.reviewBtn {
+  padding: 12px 30px;
+  background-color: #fff;
+  border: 1px solid var(--primary-forest);
+  color: var(--primary-forest);
+  border-radius: 4px;
+  font-weight: 700;
+  cursor: pointer;
 }
