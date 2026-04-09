@@ -9,13 +9,15 @@ export default function AdminDashboard() {
   const [activeMenu, setActiveMenu] = useState('summary');
   const [bookSearch, setBookSearch] = useState('');
   const [books, setBooks] = useState<Book[]>([]);
+  
+  // 수정 모달 상태
+  const [editingBook, setEditingBook] = useState<Book | null>(null);
+  const [editForm, setEditForm] = useState({ title: '', author: '', price: 0 });
 
-  // 초기 도서 데이터 로드
   useEffect(() => {
     setBooks(INITIAL_BOOKS);
   }, []);
 
-  // 관리자 권한 체크
   useEffect(() => {
     const userRole = localStorage.getItem('userRole');
     if (userRole !== '관리자') {
@@ -30,7 +32,6 @@ export default function AdminDashboard() {
     router.push('/login');
   };
 
-  // 도서 삭제 로직
   const handleDeleteBook = (id: string) => {
     if (confirm('정말로 이 도서를 삭제하시겠습니까?')) {
       setBooks(prev => prev.filter(book => book.id !== id));
@@ -38,15 +39,20 @@ export default function AdminDashboard() {
     }
   };
 
-  // 도서 수정 로직 (시뮬레이션)
-  const handleEditBook = (id: string) => {
-    const newTitle = prompt('새로운 도서 제목을 입력하세요:');
-    if (newTitle) {
-      setBooks(prev => prev.map(book => 
-        book.id === id ? { ...book, title: newTitle } : book
-      ));
-      alert('도서 정보가 수정되었습니다.');
-    }
+  // 수정 모달 열기
+  const openEditModal = (book: Book) => {
+    setEditingBook(book);
+    setEditForm({ title: book.title, author: book.author, price: book.price });
+  };
+
+  // 수정 완료 저장
+  const handleSaveEdit = () => {
+    if (!editingBook) return;
+    setBooks(prev => prev.map(book => 
+      book.id === editingBook.id ? { ...book, ...editForm } : book
+    ));
+    setEditingBook(null);
+    alert('도서 정보가 성공적으로 수정되었습니다.');
   };
 
   const filteredBooks = books.filter(book => 
@@ -56,7 +62,6 @@ export default function AdminDashboard() {
 
   return (
     <div className={styles.adminContainer}>
-      {/* 사이드바 */}
       <aside className={styles.sidebar}>
         <div className={styles.adminInfo}>
           <h2>🌲 관리자 센터</h2>
@@ -75,7 +80,6 @@ export default function AdminDashboard() {
         </nav>
       </aside>
 
-      {/* 메인 콘텐츠 */}
       <main className={styles.mainContent}>
         {activeMenu === 'summary' && (
           <section>
@@ -93,7 +97,7 @@ export default function AdminDashboard() {
           <section>
             <div className={styles.sectionHeaderFlex}>
               <h1>도서 관리 ({books.length})</h1>
-              <button className={styles.addBtn} onClick={() => alert('신규 도서 등록 팝업이 열립니다.')}>+ 신규 도서 등록</button>
+              <button className={styles.addBtn} onClick={() => alert('신규 도서 등록 기능은 준비 중입니다.')}>+ 신규 도서 등록</button>
             </div>
 
             <div style={{ marginBottom: '20px' }}>
@@ -102,14 +106,7 @@ export default function AdminDashboard() {
                 placeholder="도서명 또는 저자명 검색..." 
                 value={bookSearch}
                 onChange={(e) => setBookSearch(e.target.value)}
-                style={{
-                  width: '100%',
-                  maxWidth: '400px',
-                  padding: '12px 15px',
-                  border: '1px solid #ddd',
-                  borderRadius: '4px',
-                  fontSize: '14px'
-                }}
+                className={styles.adminSearchInput}
               />
             </div>
 
@@ -128,7 +125,7 @@ export default function AdminDashboard() {
                       <td>{book.author}</td>
                       <td>{book.price.toLocaleString()}원</td>
                       <td>
-                        <button className={styles.editBtn} onClick={() => handleEditBook(book.id)}>수정</button> 
+                        <button className={styles.editBtn} onClick={() => openEditModal(book)}>수정</button> 
                         <button className={styles.delBtn} onClick={() => handleDeleteBook(book.id)}>삭제</button>
                       </td>
                     </tr>
@@ -162,6 +159,45 @@ export default function AdminDashboard() {
           </section>
         )}
       </main>
+
+      {/* 도서 수정 모달 UI */}
+      {editingBook && (
+        <div className={styles.modalOverlay}>
+          <div className={styles.modalContent}>
+            <h2>도서 정보 수정</h2>
+            <div className={styles.modalForm}>
+              <div className={styles.modalField}>
+                <label>도서 제목</label>
+                <input 
+                  type="text" 
+                  value={editForm.title} 
+                  onChange={(e) => setEditForm({...editForm, title: e.target.value})} 
+                />
+              </div>
+              <div className={styles.modalField}>
+                <label>저자명</label>
+                <input 
+                  type="text" 
+                  value={editForm.author} 
+                  onChange={(e) => setEditForm({...editForm, author: e.target.value})} 
+                />
+              </div>
+              <div className={styles.modalField}>
+                <label>판매 가격</label>
+                <input 
+                  type="number" 
+                  value={editForm.price} 
+                  onChange={(e) => setEditForm({...editForm, price: Number(e.target.value)})} 
+                />
+              </div>
+              <div className={styles.modalButtons}>
+                <button onClick={handleSaveEdit} className={styles.saveBtn}>저장하기</button>
+                <button onClick={() => setEditingBook(null)} className={styles.cancelBtn}>취소</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

@@ -5,7 +5,7 @@
 }
 
 .sidebar {
-  width: 280px; /* 폭을 약간 넓힘 */
+  width: 280px;
   background-color: #2d5a27;
   color: #fff;
   padding: 40px 20px;
@@ -30,7 +30,6 @@
 .adminDetail p {
   font-size: 14px;
   margin-bottom: 8px;
-  color: #eaf2ea;
 }
 
 .subInfo {
@@ -70,15 +69,6 @@
   color: #fff;
 }
 
-.logoutBtn {
-  margin-top: 40px;
-  padding: 12px;
-  border: 1px solid rgba(255,255,255,0.3);
-  color: #fff;
-  border-radius: 4px;
-  font-size: 14px;
-}
-
 .mainContent {
   flex: 1;
   padding: 60px;
@@ -98,6 +88,15 @@
   padding: 10px 20px;
   border-radius: 4px;
   font-weight: 700;
+}
+
+.adminSearchInput {
+  width: 100%;
+  max-width: 400px;
+  padding: 12px 15px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
 }
 
 .tableWrapper {
@@ -125,9 +124,86 @@
   font-weight: 700;
 }
 
-.editBtn { color: #3498db; font-weight: 700; margin-right: 10px; }
-.delBtn { color: #e74c3c; font-weight: 700; }
-.notice { margin-top: 20px; font-size: 13px; color: #e74c3c; }
+.editBtn { color: #3498db; font-weight: 700; margin-right: 10px; cursor: pointer; }
+.delBtn { color: #e74c3c; font-weight: 700; cursor: pointer; }
+
+/* 모달 스타일 */
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+}
+
+.modalContent {
+  background-color: #fff;
+  padding: 40px;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 500px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.modalContent h2 {
+  margin-bottom: 30px;
+  font-size: 24px;
+  color: #2d5a27;
+}
+
+.modalForm {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.modalField {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.modalField label {
+  font-size: 14px;
+  font-weight: 700;
+  color: #666;
+}
+
+.modalField input {
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  outline: none;
+}
+
+.modalButtons {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.saveBtn {
+  flex: 1;
+  padding: 15px;
+  background-color: #2d5a27;
+  color: #fff;
+  border-radius: 4px;
+  font-weight: 700;
+}
+
+.cancelBtn {
+  flex: 1;
+  padding: 15px;
+  background-color: #eee;
+  color: #666;
+  border-radius: 4px;
+  font-weight: 700;
+}
 
 .statGrid {
   display: grid;
