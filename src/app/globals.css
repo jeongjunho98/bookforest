@@ -1,0 +1,47 @@
+:root {
+  /* PRD: 책갈피 숲 전용 색상 팔레트 */
+  --primary-forest: #2d5a27; /* Deep Forest Green */
+  --secondary-wood: #8b5a2b; /* Wood Brown */
+  --bg-soft-mint: #f9fbf9;   /* Soft Mint White */
+  --text-deep-charcoal: #2c3e50;
+  --accent-light-green: #eaf2ea;
+  --max-width: 1200px;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html,
+body {
+  max-width: 100vw;
+  overflow-x: hidden;
+  background-color: var(--bg-soft-mint);
+  color: var(--text-deep-charcoal);
+  font-family: 'Noto Serif KR', serif, 'Noto Sans KR', sans-serif;
+  line-height: 1.6;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+ul {
+  list-style: none;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-family: inherit;
+}
+
+.container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 20px;
+}
