@@ -12,7 +12,7 @@ declare global {
 
 export default function SignupPage() {
   const router = useRouter();
-  const [isVerified, setIsVerified] = useState(false); // 본인인증 상태 관리
+  const [isVerified, setIsVerified] = useState(false);
   const [formData, setFormData] = useState({
     userId: '',
     password: '',
@@ -61,15 +61,13 @@ export default function SignupPage() {
     }).open();
   };
 
+  const handleAllCheck = (checked: boolean) => {
+    setAgreements({ terms: checked, privacy: checked, marketing: checked });
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    
-    // 본인인증 여부 체크 (핵심 보완 사항)
-    if (!isVerified) {
-      alert('휴대폰 본인인증을 완료하셔야 회원가입이 가능합니다.');
-      return;
-    }
-
+    if (!isVerified) return alert('휴대폰 본인인증을 완료하셔야 회원가입이 가능합니다.');
     if (!agreements.terms || !agreements.privacy) return alert('필수 약관에 동의해주세요.');
     if (formData.password !== formData.confirmPassword) return alert('비밀번호가 일치하지 않습니다.');
 
