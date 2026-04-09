@@ -214,3 +214,64 @@
   font-weight: 700;
   cursor: pointer;
 }
+
+/* 리뷰 폼 스타일 추가 */
+.reviewForm {
+  background-color: #f9fbf9;
+  padding: 30px;
+  border-radius: 12px;
+  border: 1px solid #eaf2ea;
+}
+
+.starInput {
+  margin-bottom: 20px;
+}
+
+.starInput label {
+  display: block;
+  font-size: 14px;
+  font-weight: 700;
+  color: #666;
+  margin-bottom: 10px;
+}
+
+.starsSelect {
+  display: flex;
+  gap: 5px;
+}
+
+.reviewTextarea {
+  width: 100%;
+  height: 150px;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  resize: none;
+  margin-bottom: 20px;
+  outline: none;
+  font-family: inherit;
+}
+
+.formButtons {
+  display: flex;
+  gap: 10px;
+}
+
+.submitReviewBtn {
+  flex: 1;
+  padding: 15px;
+  background-color: var(--primary-forest);
+  color: #fff;
+  border-radius: 8px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.cancelReviewBtn {
+  padding: 15px 30px;
+  background-color: #eee;
+  color: #666;
+  border-radius: 8px;
+  font-weight: 700;
+  cursor: pointer;
+}
