@@ -28,7 +28,7 @@ export default function Home() {
             <h2>🌲 숲의 베스트셀러</h2>
             <p>지금 가장 많은 독자들이 숲에서 찾은 책들입니다.</p>
           </div>
-          {/* 전 제품 목록 페이지(/all-products)로 연결 */}
+          {/* 베스트셀러 섹션에는 '전체보기' 유지 */}
           <Link href="/all-products" className={styles.moreLink}>전체보기 →</Link>
         </div>
         
@@ -80,8 +80,7 @@ export default function Home() {
               <h2>🍃 숲에 막 도착한 책</h2>
               <p>숲의 신선함을 담은 새로운 도서들을 만나보세요.</p>
             </div>
-            {/* 전 제품 목록 페이지(/all-products)로 연결 */}
-            <Link href="/all-products" className={styles.moreLink}>전체보기 →</Link>
+            {/* 요청 사항: 신간 섹션에서 '전체보기' 버튼 제거 완료 */}
           </div>
           <div className={styles.bookGrid}>
             {newBooks.map((book) => (
