@@ -32,10 +32,14 @@ export default function SignupPage() {
     detailAddress: ''
   });
 
-  const [agreements, setAgreements] = useState({ terms: false, privacy: false, marketing: false });
+  const [agreements, setAgreements] = useState({
+    terms: false,
+    privacy: false,
+    marketing: false
+  });
+
   const isAllChecked = agreements.terms && agreements.privacy && agreements.marketing;
 
-  // 1. 아이디 중복확인
   const handleIdCheck = () => {
     if (!formData.userId) {
       alert('아이디를 입력해주세요.');
@@ -44,16 +48,14 @@ export default function SignupPage() {
     alert(`[${formData.userId}]는 사용 가능한 아이디입니다.`);
   };
 
-  // 2. 휴대폰 인증요청
   const handlePhoneAuth = () => {
     if (!formData.phone2 || !formData.phone3) {
       alert('휴대폰 번호를 모두 입력해주세요.');
       return;
     }
-    alert('인증번호가 발송되었습니다. (테스트 환경에서는 자동으로 인증 완료 처리됩니다.)');
+    alert('인증번호가 발송되었습니다.');
   };
 
-  // 3. 실제 주소찾기 (카카오 API)
   const handleAddressSearch = () => {
     new window.daum.Postcode({
       oncomplete: function(data: any) {
@@ -67,7 +69,11 @@ export default function SignupPage() {
   };
 
   const handleAllCheck = (checked: boolean) => {
-    setAgreements({ terms: checked, privacy: checked, marketing: checked });
+    setAgreements({
+      terms: checked,
+      privacy: checked,
+      marketing: checked
+    });
   };
 
   const handleSingleCheck = (name: keyof typeof agreements, checked: boolean) => {
@@ -76,15 +82,19 @@ export default function SignupPage() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // 1. 필수 약관 동의 체크 (핵심 수정 사항)
+    if (!agreements.terms || !agreements.privacy) {
+      alert('필수 이용약관에 모두 동의하셔야 회원가입이 가능합니다.');
+      return;
+    }
+
     if (formData.password !== formData.confirmPassword) {
       alert('비밀번호가 일치하지 않습니다.');
       return;
     }
-    if (!agreements.terms || !agreements.privacy) {
-      alert('필수 약관에 동의해주세요.');
-      return;
-    }
-    alert(`🌲 책갈피 숲 회원가입 완료!\n\n아이디: ${formData.userId}\n주소: [${formData.zipCode}] ${formData.baseAddress}`);
+
+    alert(`🌲 책갈피 숲 회원가입이 완료되었습니다!\n\n아이디: ${formData.userId}\n성함: ${formData.name}`);
     router.push('/login');
   };
 
@@ -97,6 +107,7 @@ export default function SignupPage() {
         </div>
 
         <form className={styles.signupForm} onSubmit={handleSubmit}>
+          {/* 계정정보 */}
           <section className={styles.section}>
             <h3 className={styles.sectionTitle}>계정정보</h3>
             <div className={styles.inputRow}>
@@ -115,6 +126,7 @@ export default function SignupPage() {
             </div>
           </section>
 
+          {/* 개인정보 */}
           <section className={styles.section}>
             <h3 className={styles.sectionTitle}>개인정보</h3>
             <div className={styles.inputRow}>
@@ -168,6 +180,7 @@ export default function SignupPage() {
             </div>
           </section>
 
+          {/* 주소정보 */}
           <section className={styles.section}>
             <h3 className={styles.sectionTitle}>배송 주소</h3>
             <div className={styles.addressGroup}>
@@ -180,6 +193,7 @@ export default function SignupPage() {
             </div>
           </section>
 
+          {/* 약관동의 (필수 체크 강화) */}
           <section className={styles.section}>
             <h3 className={styles.sectionTitle}>약관동의</h3>
             <div className={styles.agreementBox}>
@@ -188,11 +202,11 @@ export default function SignupPage() {
                 <label htmlFor="all"><strong>전체 동의합니다.</strong></label>
               </div>
               <div className={styles.checkItem}>
-                <input type="checkbox" id="t1" required checked={agreements.terms} onChange={(e) => handleSingleCheck('terms', e.target.checked)} />
+                <input type="checkbox" id="t1" checked={agreements.terms} onChange={(e) => handleSingleCheck('terms', e.target.checked)} />
                 <label htmlFor="t1">[필수] 책갈피 숲 이용약관 동의</label>
               </div>
               <div className={styles.checkItem}>
-                <input type="checkbox" id="t2" required checked={agreements.privacy} onChange={(e) => handleSingleCheck('privacy', e.target.checked)} />
+                <input type="checkbox" id="t2" checked={agreements.privacy} onChange={(e) => handleSingleCheck('privacy', e.target.checked)} />
                 <label htmlFor="t2">[필수] 개인정보 수집 및 이용 동의</label>
               </div>
               <div className={styles.checkItem}>
