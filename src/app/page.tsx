@@ -28,8 +28,8 @@ export default function Home() {
             <h2>🌲 숲의 베스트셀러</h2>
             <p>지금 가장 많은 독자들이 숲에서 찾은 책들입니다.</p>
           </div>
-          {/* 버그 수정: /books 로 이동하여 105개 전 제품 확인 가능 */}
-          <Link href="/books" className={styles.moreLink}>전체보기 →</Link>
+          {/* 전 제품 목록 페이지(/all-products)로 연결 */}
+          <Link href="/all-products" className={styles.moreLink}>전체보기 →</Link>
         </div>
         
         <div className={styles.bookGrid}>
@@ -80,8 +80,8 @@ export default function Home() {
               <h2>🍃 숲에 막 도착한 책</h2>
               <p>숲의 신선함을 담은 새로운 도서들을 만나보세요.</p>
             </div>
-            {/* 버그 수정: /books 로 이동하여 105개 전 제품 확인 가능 */}
-            <Link href="/books" className={styles.moreLink}>전체보기 →</Link>
+            {/* 전 제품 목록 페이지(/all-products)로 연결 */}
+            <Link href="/all-products" className={styles.moreLink}>전체보기 →</Link>
           </div>
           <div className={styles.bookGrid}>
             {newBooks.map((book) => (
