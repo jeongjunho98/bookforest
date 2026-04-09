@@ -16,7 +16,7 @@ export default function SignupPage() {
     birthYear: '',
     birthMonth: '',
     birthDay: '',
-    gender: 'none',
+    gender: 'M', // 기본값을 남성으로 설정
     phoneAgency: 'SKT',
     phone1: '010',
     phone2: '',
@@ -52,7 +52,7 @@ export default function SignupPage() {
       alert('필수 약관에 동의해주세요.');
       return;
     }
-    alert(`🌲 책갈피 숲 회원가입 완료!\n\n아이디: ${formData.userId}\n이름: ${formData.name}\n이메일: ${formData.emailUser}@${formData.emailDomain}`);
+    alert(`🌲 책갈피 숲 회원가입 완료!\n\n아이디: ${formData.userId}\n성별: ${formData.gender === 'M' ? '남성' : '여성'}`);
     router.push('/login');
   };
 
@@ -65,86 +65,45 @@ export default function SignupPage() {
         </div>
 
         <form className={styles.signupForm} onSubmit={handleSubmit}>
-          {/* 1. 계정정보 (아이디/비밀번호) */}
+          {/* 계정정보 섹션 */}
           <section className={styles.section}>
             <h3 className={styles.sectionTitle}>계정정보</h3>
-            
             <div className={styles.inputRow}>
               <label>아이디 <span className={styles.star}>*</span></label>
               <div className={styles.inputGroup}>
-                <input 
-                  type="text" 
-                  placeholder="6~20자 영문, 숫자 조합" 
-                  required 
-                  className={styles.flexInput} 
-                  value={formData.userId}
-                  onChange={(e) => setFormData({...formData, userId: e.target.value})}
-                />
+                <input type="text" placeholder="6~20자 영문, 숫자 조합" required className={styles.flexInput} value={formData.userId} onChange={(e) => setFormData({...formData, userId: e.target.value})} />
                 <button type="button" className={styles.subBtn}>중복확인</button>
               </div>
             </div>
-
             <div className={styles.inputRow}>
               <label>비밀번호 <span className={styles.star}>*</span></label>
               <div className={styles.inputStack}>
-                <input 
-                  type="password" 
-                  placeholder="영문, 숫자, 특수문자 포함 8~16자" 
-                  required 
-                  value={formData.password}
-                  onChange={(e) => setFormData({...formData, password: e.target.value})}
-                />
-                <input 
-                  type="password" 
-                  placeholder="비밀번호 확인" 
-                  required 
-                  value={formData.confirmPassword}
-                  onChange={(e) => setFormData({...formData, confirmPassword: e.target.value})}
-                />
+                <input type="password" placeholder="영문, 숫자, 특수문자 포함 8~16자" required value={formData.password} onChange={(e) => setFormData({...formData, password: e.target.value})} />
+                <input type="password" placeholder="비밀번호 확인" required value={formData.confirmPassword} onChange={(e) => setFormData({...formData, confirmPassword: e.target.value})} />
               </div>
             </div>
           </section>
 
-          {/* 2. 개인정보 (이름/이메일/생년월일/연락처) */}
+          {/* 개인정보 섹션 (성별 항목 수정) */}
           <section className={styles.section}>
             <h3 className={styles.sectionTitle}>개인정보</h3>
-
             <div className={styles.inputRow}>
               <label>이름 <span className={styles.star}>*</span></label>
-              <input 
-                type="text" 
-                placeholder="성함 입력" 
-                required 
-                className={styles.fullInput} 
-                value={formData.name}
-                onChange={(e) => setFormData({...formData, name: e.target.value})}
-              />
+              <input type="text" placeholder="성함 입력" required className={styles.fullInput} value={formData.name} onChange={(e) => setFormData({...formData, name: e.target.value})} />
             </div>
-
             <div className={styles.inputRow}>
               <label>이메일 <span className={styles.star}>*</span></label>
               <div className={styles.emailGroup}>
-                <input 
-                  type="text" 
-                  placeholder="이메일 아이디" 
-                  required 
-                  value={formData.emailUser}
-                  onChange={(e) => setFormData({...formData, emailUser: e.target.value})}
-                />
+                <input type="text" placeholder="이메일 아이디" required value={formData.emailUser} onChange={(e) => setFormData({...formData, emailUser: e.target.value})} />
                 <span className={styles.at}>@</span>
-                <select 
-                  value={formData.emailDomain}
-                  onChange={(e) => setFormData({...formData, emailDomain: e.target.value})}
-                >
+                <select value={formData.emailDomain} onChange={(e) => setFormData({...formData, emailDomain: e.target.value})}>
                   <option value="naver.com">naver.com</option>
                   <option value="gmail.com">gmail.com</option>
                   <option value="daum.net">daum.net</option>
-                  <option value="kakao.com">kakao.com</option>
                   <option value="direct">직접입력</option>
                 </select>
               </div>
             </div>
-
             <div className={styles.inputRow}>
               <label>생년월일 <span className={styles.star}>*</span></label>
               <div className={styles.birthGroup}>
@@ -157,12 +116,28 @@ export default function SignupPage() {
               </div>
             </div>
 
+            {/* 수정된 성별 선택란 */}
             <div className={styles.inputRow}>
-              <label>성별</label>
+              <label>성별 <span className={styles.star}>*</span></label>
               <div className={styles.radioGroup}>
-                <label><input type="radio" name="gender" value="M" onChange={() => setFormData({...formData, gender: 'M'})} /> 남성</label>
-                <label><input type="radio" name="gender" value="F" onChange={() => setFormData({...formData, gender: 'F'})} /> 여성</label>
-                <label><input type="radio" name="gender" value="none" defaultChecked onChange={() => setFormData({...formData, gender: 'none'})} /> 선택안함</label>
+                <label style={{ cursor: 'pointer' }}>
+                  <input 
+                    type="radio" 
+                    name="gender" 
+                    value="M" 
+                    checked={formData.gender === 'M'}
+                    onChange={() => setFormData({...formData, gender: 'M'})} 
+                  /> 남성
+                </label>
+                <label style={{ cursor: 'pointer' }}>
+                  <input 
+                    type="radio" 
+                    name="gender" 
+                    value="F" 
+                    checked={formData.gender === 'F'}
+                    onChange={() => setFormData({...formData, gender: 'F'})} 
+                  /> 여성
+                </label>
               </div>
             </div>
 
@@ -182,20 +157,19 @@ export default function SignupPage() {
             </div>
           </section>
 
-          {/* 3. 배송 주소 */}
+          {/* 주소/약관동의 생략 (기존 유지) */}
           <section className={styles.section}>
             <h3 className={styles.sectionTitle}>배송 주소</h3>
             <div className={styles.addressGroup}>
               <div className={styles.zipCodeRow}>
-                <input type="text" placeholder="우편번호" readOnly value={formData.zipCode} />
+                <input type="text" placeholder="우편번호" readOnly />
                 <button type="button" className={styles.subBtn}>주소찾기</button>
               </div>
-              <input type="text" placeholder="기본 주소" className={styles.fullInput} value={formData.baseAddress} readOnly />
-              <input type="text" placeholder="상세 주소 입력" className={styles.fullInput} value={formData.detailAddress} onChange={(e) => setFormData({...formData, detailAddress: e.target.value})} />
+              <input type="text" placeholder="기본 주소" className={styles.fullInput} readOnly />
+              <input type="text" placeholder="상세 주소 입력" className={styles.fullInput} onChange={(e) => setFormData({...formData, detailAddress: e.target.value})} />
             </div>
           </section>
 
-          {/* 4. 약관동의 */}
           <section className={styles.section}>
             <h3 className={styles.sectionTitle}>약관동의</h3>
             <div className={styles.agreementBox}>
