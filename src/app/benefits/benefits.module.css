@@ -1,0 +1,42 @@
+.headerArea {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.headerArea h1 {
+  font-size: 32px;
+  color: var(--primary-forest);
+  margin-bottom: 15px;
+}
+
+.benefitGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 30px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.benefitCard {
+  background-color: #fff;
+  padding: 40px;
+  border: 1px solid #eee;
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease;
+}
+
+.benefitCard:hover {
+  transform: translateY(-5px);
+}
+
+.benefitCard h3 {
+  font-size: 20px;
+  color: var(--primary-forest);
+  margin-bottom: 15px;
+}
+
+.benefitCard p {
+  color: #666;
+  line-height: 1.6;
+}
