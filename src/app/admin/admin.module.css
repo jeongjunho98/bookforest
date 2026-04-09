@@ -128,7 +128,6 @@
 .editBtn { color: #3498db; font-weight: 700; margin-right: 10px; cursor: pointer; }
 .delBtn { color: #e74c3c; font-weight: 700; cursor: pointer; }
 
-/* 상태 배지 */
 .statusBadge {
   padding: 4px 10px;
   border-radius: 20px;
@@ -140,8 +139,8 @@
 .결제완료 { background-color: #eaf2ea; color: #2d5a27; }
 .배송중 { background-color: #e3f2fd; color: #2196f3; }
 .배송완료 { background-color: #fff3e0; color: #ff9800; }
+.주문취소 { background-color: #ffebee; color: #f44336; }
 
-/* 모달 스타일 (기존 유지) */
 .modalOverlay {
   position: fixed; top: 0; left: 0; right: 0; bottom: 0;
   background-color: rgba(0, 0, 0, 0.5);
@@ -169,3 +168,4 @@
 .statCard {
   background-color: #fff; padding: 30px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.05);
 }
+.notice { margin-top: 20px; font-size: 13px; color: #e74c3c; }

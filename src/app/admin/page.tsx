@@ -10,7 +10,7 @@ interface AdminOrder {
   user: string;
   bookTitle: string;
   price: number;
-  status: '입금대기' | '결제완료' | '배송중' | '배송완료';
+  status: '입금대기' | '결제완료' | '배송중' | '배송완료' | '주문취소';
   date: string;
 }
 
@@ -54,6 +54,13 @@ export default function AdminDashboard() {
       order.id === id ? { ...order, status: newStatus } : order
     ));
     alert(`주문 [${id}] 상태가 [${newStatus}]로 변경되었습니다.`);
+  };
+
+  // 주문 취소 로직 (판매자 임의 취소)
+  const handleCancelOrder = (id: string) => {
+    if (confirm(`주문 [${id}]을 취소하시겠습니까? 취소 후에는 되돌릴 수 없습니다.`)) {
+      updateOrderStatus(id, '주문취소');
+    }
   };
 
   const handleDeleteBook = (id: string) => {
@@ -107,7 +114,7 @@ export default function AdminDashboard() {
           <section>
             <h1>운영 요약</h1>
             <div className={styles.statGrid}>
-              <div className={styles.statCard}><h3>오늘의 주문</h3><p>{orders.filter(o => o.date === '2026-04-10').length}건</p></div>
+              <div className={styles.statCard}><h3>오늘의 주문</h3><p>{orders.filter(o => o.date === '2026-04-10' && o.status !== '주문취소').length}건</p></div>
               <div className={styles.statCard}><h3>전체 도서</h3><p>{books.length}권</p></div>
               <div className={styles.statCard}><h3>미결제 주문</h3><p>{orders.filter(o => o.status === '입금대기').length}건</p></div>
               <div className={styles.statCard}><h3>미답변 문의</h3><p>2건</p></div>
@@ -115,11 +122,21 @@ export default function AdminDashboard() {
           </section>
         )}
 
+        {/* 도서 관리 (105권 전수 노출 복구 완료) */}
         {activeMenu === 'books' && (
           <section>
             <div className={styles.sectionHeaderFlex}>
               <h1>도서 관리 ({books.length})</h1>
               <button className={styles.addBtn} onClick={() => alert('신규 도서 등록 기능은 준비 중입니다.')}>+ 신규 도서 등록</button>
+            </div>
+            <div style={{ marginBottom: '20px' }}>
+              <input 
+                type="text" 
+                placeholder="도서명 검색..." 
+                value={bookSearch} 
+                onChange={(e) => setBookSearch(e.target.value)} 
+                className={styles.adminSearchInput}
+              />
             </div>
             <div className={styles.tableWrapper}>
               <table className={styles.adminTable}>
@@ -129,7 +146,7 @@ export default function AdminDashboard() {
                   </tr>
                 </thead>
                 <tbody>
-                  {filteredBooks.slice(0, 10).map(book => (
+                  {filteredBooks.map(book => (
                     <tr key={book.id}>
                       <td>{book.id}</td><td>{book.title}</td><td>{book.author}</td><td>{book.price.toLocaleString()}원</td>
                       <td>
@@ -144,7 +161,6 @@ export default function AdminDashboard() {
           </section>
         )}
 
-        {/* 주문/배송 관리 구현 완료 */}
         {activeMenu === 'orders' && (
           <section>
             <h1>주문/배송 관리 ({orders.length})</h1>
@@ -164,9 +180,14 @@ export default function AdminDashboard() {
                       <td>{order.price.toLocaleString()}원</td>
                       <td><span className={`${styles.statusBadge} ${styles[order.status]}`}>{order.status}</span></td>
                       <td>
-                        {order.status === '결제완료' && <button className={styles.editBtn} onClick={() => updateOrderStatus(order.id, '배송중')}>발송하기</button>}
-                        {order.status === '입금대기' && <button className={styles.editBtn} onClick={() => updateOrderStatus(order.id, '결제완료')}>입금확인</button>}
-                        {order.status === '배송중' && <button className={styles.editBtn} onClick={() => updateOrderStatus(order.id, '배송완료')}>완료처리</button>}
+                        {order.status !== '주문취소' && order.status !== '배송완료' && (
+                          <>
+                            {order.status === '결제완료' && <button className={styles.editBtn} onClick={() => updateOrderStatus(order.id, '배송중')}>발송하기</button>}
+                            {order.status === '입금대기' && <button className={styles.editBtn} onClick={() => updateOrderStatus(order.id, '결제완료')}>입금확인</button>}
+                            {order.status === '배송중' && <button className={styles.editBtn} onClick={() => updateOrderStatus(order.id, '배송완료')}>완료처리</button>}
+                            <button className={styles.delBtn} onClick={() => handleCancelOrder(order.id)}>취소</button>
+                          </>
+                        )}
                       </td>
                     </tr>
                   ))}
