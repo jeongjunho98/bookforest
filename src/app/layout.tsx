@@ -3,6 +3,7 @@ import "./globals.css";
 import Header from "@/components/Header/Header";
 import Footer from "@/components/Footer/Footer";
 import { CartProvider } from "@/context/CartContext";
+import { AuthProvider } from "@/context/AuthContext";
 
 export const metadata: Metadata = {
   title: "책갈피 숲 (Bookforest) - 평온한 도서 탐색",
@@ -18,13 +19,15 @@ export default function RootLayout({
     <html lang="ko">
       <body>
         <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js" async></script>
-        <CartProvider>
-          <Header />
-          <main style={{ minHeight: 'calc(100vh - 80px)' }}>
-            {children}
-          </main>
-          <Footer />
-        </CartProvider>
+        <AuthProvider>
+          <CartProvider>
+            <Header />
+            <main style={{ minHeight: 'calc(100vh - 80px)' }}>
+              {children}
+            </main>
+            <Footer />
+          </CartProvider>
+        </AuthProvider>
       </body>
     </html>
   );

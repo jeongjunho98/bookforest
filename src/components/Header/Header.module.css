@@ -44,11 +44,40 @@
   color: #2d5a27;
 }
 
+.loginLink {
+  color: #2d5a27 !important;
+  border: 1px solid #2d5a27;
+  padding: 6px 15px;
+  border-radius: 20px;
+}
+
+.logoutBtn {
+  font-size: 13px;
+  color: #888;
+  border: 1px solid #ddd;
+  padding: 5px 12px;
+  border-radius: 4px;
+}
+
+.welcomeMsg {
+  font-size: 13px;
+  color: #666;
+  margin-right: 5px;
+}
+
+.adminLink, .userLink {
+  color: #2d5a27 !important;
+  font-weight: 800 !important;
+}
+
 @media (max-width: 1024px) {
   .nav {
-    gap: 10px;
+    gap: 8px;
   }
   .nav a {
     font-size: 12px;
+  }
+  .welcomeMsg {
+    display: none;
   }
 }
