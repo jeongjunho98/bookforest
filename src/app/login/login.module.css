@@ -1,0 +1,145 @@
+.loginContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - 80px);
+  padding: 40px 0;
+}
+
+.loginBox {
+  width: 100%;
+  max-width: 400px;
+  background-color: #fff;
+  padding: 50px 40px;
+  border-radius: 20px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
+  text-align: center;
+  border: 1px solid #f0f4f0;
+}
+
+.logoArea {
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--primary-forest);
+  margin-bottom: 20px;
+}
+
+.loginBox h1 {
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 10px;
+  font-family: 'Noto Serif KR', serif;
+}
+
+.subtitle {
+  font-size: 14px;
+  color: #888;
+  margin-bottom: 40px;
+}
+
+.socialGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 30px;
+}
+
+.socialBtn {
+  width: 100%;
+  padding: 14px 0;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: opacity 0.3s;
+}
+
+.socialBtn:hover {
+  opacity: 0.85;
+}
+
+.kakao {
+  background-color: #FEE500;
+  color: #3C1E1E;
+}
+
+.naver {
+  background-color: #03C75A;
+  color: #fff;
+}
+
+.google {
+  background-color: #fff;
+  color: #757575;
+  border: 1px solid #ddd;
+}
+
+.divider {
+  display: flex;
+  align-items: center;
+  margin: 30px 0;
+  color: #eee;
+}
+
+.divider::before,
+.divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background-color: #eee;
+}
+
+.divider span {
+  padding: 0 15px;
+  color: #bbb;
+  font-size: 12px;
+}
+
+.emailForm {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-bottom: 30px;
+}
+
+.input {
+  width: 100%;
+  padding: 14px 15px;
+  border: 1px solid #eee;
+  border-radius: 8px;
+  font-size: 15px;
+  background-color: #f9fbf9;
+  outline: none;
+  transition: border-color 0.3s;
+}
+
+.input:focus {
+  border-color: var(--primary-forest);
+}
+
+.submitBtn {
+  width: 100%;
+  padding: 15px 0;
+  background-color: var(--primary-forest);
+  color: #fff;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 700;
+  margin-top: 10px;
+}
+
+.footerLinks {
+  font-size: 13px;
+  color: #999;
+}
+
+.footerLinks a:hover {
+  text-decoration: underline;
+}
+
+.dot {
+  margin: 0 10px;
+}
