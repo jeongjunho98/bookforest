@@ -1,119 +1,197 @@
-.signupContainer {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: calc(100vh - 80px);
-  padding: 60px 0;
-}
-
-.signupBox {
-  width: 100%;
-  max-width: 480px;
+.signupWrapper {
+  max-width: 800px;
+  margin: 0 auto;
   background-color: #fff;
-  padding: 50px 40px;
-  border-radius: 20px;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
+  padding: 50px;
+  border: 1px solid #ddd;
+}
+
+.signupHeader {
   text-align: center;
-  border: 1px solid #f0f4f0;
+  margin-bottom: 50px;
+  padding-bottom: 30px;
+  border-bottom: 2px solid #333;
 }
 
-.logoArea {
-  font-size: 28px;
-  font-weight: 800;
-  color: var(--primary-forest);
-  margin-bottom: 20px;
-}
-
-.signupBox h1 {
-  font-size: 26px;
+.signupHeader h1 {
+  font-size: 32px;
   color: #333;
   margin-bottom: 10px;
-  font-family: 'Noto Serif KR', serif;
 }
 
-.subtitle {
-  font-size: 14px;
+.signupHeader p {
   color: #888;
-  margin-bottom: 40px;
 }
 
-.signupForm {
+.section {
+  margin-bottom: 50px;
+}
+
+.sectionTitle {
+  font-size: 18px;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 15px;
+  margin-bottom: 25px;
+  color: #2d5a27;
+}
+
+.inputRow {
   display: flex;
-  flex-direction: column;
-  gap: 20px;
-  text-align: left;
+  margin-bottom: 20px;
+  align-items: flex-start;
+}
+
+.inputRow label {
+  width: 150px;
+  padding-top: 12px;
+  font-size: 14px;
+  font-weight: 700;
+  color: #555;
+}
+
+.star {
+  color: #ff4d4d;
 }
 
 .inputGroup {
+  flex: 1;
+  display: flex;
+  gap: 10px;
+}
+
+.flexInput {
+  flex: 1;
+  padding: 12px;
+  border: 1px solid #ddd;
+}
+
+.inputStack {
+  flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 8px;
-}
-
-.inputGroup label {
-  font-size: 14px;
-  font-weight: 700;
-  color: #444;
-}
-
-.input {
-  width: 100%;
-  padding: 14px 15px;
-  border: 1px solid #eee;
-  border-radius: 8px;
-  font-size: 15px;
-  background-color: #f9fbf9;
-  outline: none;
-  transition: border-color 0.3s;
-}
-
-.input:focus {
-  border-color: var(--primary-forest);
-}
-
-.agreement {
-  display: flex;
-  align-items: center;
   gap: 10px;
-  margin-top: 10px;
-  font-size: 13px;
-  color: #666;
 }
 
-.agreement input {
-  width: 16px;
-  height: 16px;
-  cursor: pointer;
+.inputStack input {
+  padding: 12px;
+  border: 1px solid #ddd;
+}
+
+.fullInput {
+  flex: 1;
+  padding: 12px;
+  border: 1px solid #ddd;
+}
+
+.birthGroup {
+  flex: 1;
+  display: flex;
+  gap: 10px;
+}
+
+.birthGroup input {
+  width: 33%;
+  padding: 12px;
+  border: 1px solid #ddd;
+  text-align: center;
+}
+
+.radioGroup {
+  flex: 1;
+  display: flex;
+  gap: 20px;
+  padding-top: 10px;
+}
+
+.phoneGroup {
+  flex: 1;
+  display: flex;
+  gap: 10px;
+}
+
+.agencySelect {
+  padding: 12px;
+  border: 1px solid #ddd;
+}
+
+.phoneInputs {
+  display: flex;
+  gap: 5px;
+  flex: 1;
+}
+
+.phoneInputs input {
+  width: 33%;
+  padding: 12px;
+  border: 1px solid #ddd;
+  text-align: center;
+}
+
+.subBtn {
+  padding: 0 20px;
+  background-color: #555;
+  color: #fff;
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+.addressGroup {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.zipCodeRow {
+  display: flex;
+  gap: 10px;
+}
+
+.zipCodeRow input {
+  width: 120px;
+  padding: 12px;
+  border: 1px solid #ddd;
+  background-color: #f5f5f5;
+}
+
+.agreementBox {
+  background-color: #f9f9f9;
+  padding: 30px;
+  border: 1px solid #eee;
+}
+
+.allCheck {
+  padding-bottom: 20px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #ddd;
+}
+
+.checkItem {
+  margin-bottom: 12px;
+  font-size: 14px;
 }
 
 .submitBtn {
   width: 100%;
-  padding: 18px 0;
-  background-color: var(--primary-forest);
+  padding: 20px 0;
+  background-color: #2d5a27;
   color: #fff;
-  border-radius: 8px;
-  font-size: 18px;
-  font-weight: 700;
+  border-radius: 4px;
+  font-size: 20px;
+  font-weight: 800;
   margin-top: 20px;
   cursor: pointer;
-  transition: background-color 0.3s;
 }
 
-.submitBtn:hover {
-  background-color: #1e3d1a;
-}
-
-.footerLinks {
-  margin-top: 30px;
-  font-size: 14px;
-  color: #999;
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-}
-
-.loginLink {
-  color: var(--primary-forest);
-  font-weight: 700;
-  text-decoration: underline;
+@media (max-width: 768px) {
+  .inputRow {
+    flex-direction: column;
+  }
+  .inputRow label {
+    width: 100%;
+    margin-bottom: 8px;
+  }
+  .signupWrapper {
+    padding: 20px;
+  }
 }
