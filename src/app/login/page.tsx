@@ -1,11 +1,28 @@
 "use client";
+import { useState } from 'react';
 import styles from "./login.module.css";
 import Link from "next/link";
+import { supabase } from "@/lib/supabase";
 
 export default function LoginPage() {
-  const handleSocialLogin = (provider: string) => {
-    alert(`${provider} 로그인을 시작합니다. (실제 연동을 위해선 Supabase API Key 설정이 필요합니다.)`);
-    // 실제 구현 시: supabase.auth.signInWithOAuth({ provider: 'kakao' })
+  const [loading, setLoading] = useState(false);
+
+  const handleSocialLogin = async (provider: 'kakao' | 'naver' | 'google') => {
+    setLoading(true);
+    try {
+      const { error } = await supabase.auth.signInWithOAuth({
+        provider: provider,
+        options: {
+          redirectTo: `${window.location.origin}/auth/callback`,
+        },
+      });
+      
+      if (error) throw error;
+    } catch (error: any) {
+      alert(`로그인 중 오류가 발생했습니다: ${error.message}`);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -22,20 +39,23 @@ export default function LoginPage() {
             <button 
               className={`${styles.socialBtn} ${styles.kakao}`}
               onClick={() => handleSocialLogin('kakao')}
+              disabled={loading}
             >
-              <span className={styles.icon}>🟡</span> 카카오로 시작하기
+              <span className={styles.icon}>🟡</span> {loading ? '잠시만요...' : '카카오로 시작하기'}
             </button>
             <button 
               className={`${styles.socialBtn} ${styles.naver}`}
               onClick={() => handleSocialLogin('naver')}
+              disabled={loading}
             >
-              <span className={styles.icon}>🟢</span> 네이버로 시작하기
+              <span className={styles.icon}>🟢</span> {loading ? '잠시만요...' : '네이버로 시작하기'}
             </button>
             <button 
               className={`${styles.socialBtn} ${styles.google}`}
               onClick={() => handleSocialLogin('google')}
+              disabled={loading}
             >
-              <span className={styles.icon}>⚪</span> 구글로 시작하기
+              <span className={styles.icon}>⚪</span> {loading ? '잠시만요...' : '구글로 시작하기'}
             </button>
           </div>
 
