@@ -111,7 +111,8 @@ export default function AdminDashboard() {
               <div className={styles.statCard}><h3>오늘의 주문</h3><p>{orders.filter(o => o.status !== '주문취소').length}건</p></div>
               <div className={styles.statCard}><h3>전체 도서</h3><p>{books.length}권</p></div>
               <div className={styles.statCard}><h3>미결제 주문</h3><p>{orders.filter(o => o.status === '입금대기').length}건</p></div>
-              <div className={styles.statCard}><h3>미답변 문의</h3><p>2건</p></div>
+              {/* 미답변 문의 0건으로 초기화 완료 */}
+              <div className={styles.statCard}><h3>미답변 문의</h3><p>0건</p></div>
             </div>
           </section>
         )}
