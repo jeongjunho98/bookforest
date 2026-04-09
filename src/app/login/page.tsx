@@ -16,8 +16,8 @@ export default function LoginPage() {
     
     if (userId === 'bookforestadmin' && password === 'bookforest2026') {
       login(userId, '관리자', '정준호');
-      alert('관리자 계정으로 로그인 되었습니다.'); // 문구 수정
-      router.push('/'); // 메인 화면으로 이동하도록 수정
+      alert('관리자 계정으로 로그인 되었습니다.');
+      router.push('/');
     } else if (userId && password) {
       login(userId, '회원', userId);
       alert(`${userId}님, 반갑습니다!`);
@@ -25,6 +25,10 @@ export default function LoginPage() {
     } else {
       alert('아이디와 비밀번호를 입력해주세요.');
     }
+  };
+
+  const handleSocialLogin = (provider: string) => {
+    alert(`${provider} 간편 로그인을 시작합니다. (Supabase 연동 시 실제 작동합니다.)`);
   };
 
   return (
@@ -58,13 +62,29 @@ export default function LoginPage() {
                 required 
               />
             </div>
-            <button type="submit" className={styles.submitBtn}>로그인하기</button>
+            <button type="submit" className={styles.submitBtn}>로그인</button>
           </form>
 
           <div className={styles.footerLinks}>
             <Link href="/signup">회원가입</Link>
             <span className={styles.dot}>·</span>
             <Link href="/account-recovery">아이디/비밀번호 찾기</Link>
+          </div>
+
+          <div className={styles.divider}>
+            <span>간편 로그인</span>
+          </div>
+
+          <div className={styles.socialGroup}>
+            <button className={`${styles.socialBtn} ${styles.kakao}`} onClick={() => handleSocialLogin('카카오')}>
+              <span className={styles.icon}>🟡</span> 카카오 로그인
+            </button>
+            <button className={`${styles.socialBtn} ${styles.naver}`} onClick={() => handleSocialLogin('네이버')}>
+              <span className={styles.icon}>🟢</span> 네이버 로그인
+            </button>
+            <button className={`${styles.socialBtn} ${styles.google}`} onClick={() => handleSocialLogin('구글')}>
+              <span className={styles.icon}>⚪</span> 구글 로그인
+            </button>
           </div>
 
           <div className={styles.nonMemberArea}>
