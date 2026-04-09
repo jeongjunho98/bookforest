@@ -6,29 +6,31 @@ import { useRouter } from "next/navigation";
 
 export default function LoginPage() {
   const router = useRouter();
-  const [email, setEmail] = useState('');
+  const [userId, setUserId] = useState('');
   const [password, setPassword] = useState('');
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
     
-    // 관리자 계정 체크
-    if (email === 'bookforestadmin' && password === 'bookforest2026') {
+    // 관리자 및 일반 계정 로그인 통합 로직
+    if (userId === 'bookforestadmin' && password === 'bookforest2026') {
       localStorage.setItem('userRole', '관리자');
-      localStorage.setItem('userName', '정준호');
-      alert('관리자 계정으로 로그인되었습니다. 관리자 센터로 이동합니다.');
+      localStorage.setItem('userName', '최고관리자');
+      alert('관리자 센터에 접속합니다.');
       router.push('/admin');
-      return;
+    } else if (userId && password) {
+      // 일반 회원 시뮬레이션
+      localStorage.setItem('userRole', '회원');
+      localStorage.setItem('userName', userId);
+      alert(`${userId}님, 환영합니다!`);
+      router.push('/');
+    } else {
+      alert('아이디와 비밀번호를 모두 입력해주세요.');
     }
-
-    // 일반 로그인 (Mock)
-    alert('일반 회원으로 로그인되었습니다.');
-    localStorage.setItem('userRole', '회원');
-    router.push('/');
   };
 
   const handleSocialLogin = (provider: string) => {
-    alert(`${provider} 로그인을 시작합니다. (실제 연동을 위해선 Supabase 설정이 필요합니다.)`);
+    alert(`${provider} 로그인을 시작합니다. (현재는 아이디 로그인 방식을 권장합니다.)`);
   };
 
   return (
@@ -38,42 +40,52 @@ export default function LoginPage() {
           <div className={styles.logoArea}>
             <Link href="/">🌲 책갈피 숲</Link>
           </div>
-          <h1>반가워요! 숲의 독자님</h1>
-          <p className={styles.subtitle}>간편하게 로그인하고 당신만의 책갈피를 찾아보세요.</p>
+          <h1>로그인</h1>
+          <p className={styles.subtitle}>아이디와 비밀번호를 입력해 주세요.</p>
 
           <form className={styles.emailForm} onSubmit={handleLogin}>
-            <input 
-              type="text" 
-              placeholder="아이디 또는 이메일" 
-              className={styles.input} 
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required 
-            />
-            <input 
-              type="password" 
-              placeholder="비밀번호" 
-              className={styles.input} 
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required 
-            />
-            <button type="submit" className={styles.submitBtn}>로그인</button>
+            <div className={styles.inputWrapper}>
+              <input 
+                type="text" 
+                placeholder="아이디 또는 이메일" 
+                className={styles.input} 
+                value={userId}
+                onChange={(e) => setUserId(e.target.value)}
+                required 
+                autoComplete="username"
+              />
+            </div>
+            <div className={styles.inputWrapper}>
+              <input 
+                type="password" 
+                placeholder="비밀번호" 
+                className={styles.input} 
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required 
+                autoComplete="current-password"
+              />
+            </div>
+            <button type="submit" className={styles.submitBtn}>로그인하기</button>
           </form>
-
-          <div className={styles.socialGroup}>
-            <button className={`${styles.socialBtn} ${styles.kakao}`} onClick={() => handleSocialLogin('kakao')}>
-              <span className={styles.icon}>🟡</span> 카카오로 시작하기
-            </button>
-            <button className={`${styles.socialBtn} ${styles.naver}`} onClick={() => handleSocialLogin('naver')}>
-              <span className={styles.icon}>🟢</span> 네이버로 시작하기
-            </button>
-          </div>
 
           <div className={styles.footerLinks}>
             <Link href="/signup">회원가입</Link>
             <span className={styles.dot}>·</span>
             <Link href="/account-recovery">아이디/비밀번호 찾기</Link>
+          </div>
+
+          <div className={styles.divider}>
+            <span>간편 로그인</span>
+          </div>
+
+          <div className={styles.socialGroup}>
+            <button className={`${styles.socialBtn} ${styles.kakao}`} onClick={() => handleSocialLogin('kakao')}>
+              <span className={styles.icon}>🟡</span> 카카오 로그인
+            </button>
+            <button className={`${styles.socialBtn} ${styles.naver}`} onClick={() => handleSocialLogin('naver')}>
+              <span className={styles.icon}>🟢</span> 네이버 로그인
+            </button>
           </div>
 
           <div className={styles.nonMemberArea}>
