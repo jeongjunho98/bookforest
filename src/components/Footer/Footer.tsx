@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import styles from './Footer.module.css';
 
 export default function Footer() {
@@ -23,8 +24,8 @@ export default function Footer() {
         <div className={styles.bottomBar}>
           <p>© 2026 책갈피 숲 (Bookforest). All rights reserved.</p>
           <div className={styles.links}>
-            <span>이용약관</span>
-            <span>개인정보처리방침</span>
+            <Link href="/terms">이용약관</Link>
+            <Link href="/privacy">개인정보처리방침</Link>
           </div>
         </div>
       </div>
