@@ -5,7 +5,7 @@
 }
 
 .sidebar {
-  width: 260px;
+  width: 280px; /* 폭을 약간 넓힘 */
   background-color: #2d5a27;
   color: #fff;
   padding: 40px 20px;
@@ -19,12 +19,23 @@
 .adminInfo {
   margin-bottom: 40px;
   border-bottom: 1px solid rgba(255,255,255,0.1);
-  padding-bottom: 20px;
+  padding-bottom: 25px;
 }
 
 .adminInfo h2 {
   font-size: 20px;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
+}
+
+.adminDetail p {
+  font-size: 14px;
+  margin-bottom: 8px;
+  color: #eaf2ea;
+}
+
+.subInfo {
+  font-size: 12px !important;
+  opacity: 0.8;
 }
 
 .roleBadge {
@@ -35,7 +46,7 @@
   border-radius: 4px;
   font-size: 12px;
   font-weight: 800;
-  margin-top: 10px;
+  margin-top: 15px;
 }
 
 .adminNav {
@@ -89,19 +100,6 @@
   font-weight: 700;
 }
 
-.filterArea {
-  margin-bottom: 20px;
-}
-
-.adminSearchInput {
-  width: 100%;
-  max-width: 400px;
-  padding: 12px 15px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  font-size: 14px;
-}
-
 .tableWrapper {
   background-color: #fff;
   border-radius: 12px;
@@ -125,14 +123,11 @@
   background-color: #f9fbf9;
   color: #666;
   font-weight: 700;
-  position: sticky;
-  top: 0;
 }
 
-.titleCell {
-  font-weight: 600;
-  max-width: 300px;
-}
+.editBtn { color: #3498db; font-weight: 700; margin-right: 10px; }
+.delBtn { color: #e74c3c; font-weight: 700; }
+.notice { margin-top: 20px; font-size: 13px; color: #e74c3c; }
 
 .statGrid {
   display: grid;
@@ -146,26 +141,4 @@
   padding: 30px;
   border-radius: 12px;
   box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-}
-
-.editBtn {
-  color: #3498db;
-  font-weight: 700;
-  margin-right: 10px;
-}
-
-.delBtn {
-  color: #e74c3c;
-  font-weight: 700;
-}
-
-.disabledBtn {
-  color: #ccc;
-  cursor: not-allowed;
-}
-
-.notice {
-  margin-top: 20px;
-  font-size: 13px;
-  color: #e74c3c;
 }

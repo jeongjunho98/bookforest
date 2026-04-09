@@ -35,7 +35,11 @@ export default function AdminDashboard() {
       <aside className={styles.sidebar}>
         <div className={styles.adminInfo}>
           <h2>🌲 관리자 센터</h2>
-          <p>ID: bookforestadmin</p>
+          <div className={styles.adminDetail}>
+            <p>ID: <strong>bookforestadmin</strong></p>
+            <p className={styles.subInfo}>📧 jeongjunho9804@gmail.com</p>
+            <p className={styles.subInfo}>📞 010-4851-7984</p>
+          </div>
           <span className={styles.roleBadge}>관리자</span>
         </div>
         <nav className={styles.adminNav}>
@@ -47,7 +51,7 @@ export default function AdminDashboard() {
         <button onClick={handleLogout} className={styles.logoutBtn}>관리자 로그아웃</button>
       </aside>
 
-      {/* 메인 콘텐츠 */}
+      {/* 메인 콘텐츠 (기존 로직 유지) */}
       <main className={styles.mainContent}>
         {activeMenu === 'summary' && (
           <section>
@@ -55,7 +59,7 @@ export default function AdminDashboard() {
             <div className={styles.statGrid}>
               <div className={styles.statCard}><h3>오늘의 주문</h3><p>12건</p></div>
               <div className={styles.statCard}><h3>전체 도서</h3><p>{MOCK_BOOKS.length}권</p></div>
-              <div className={styles.statCard}><h3>신규 회원</h3><p>4명</p></div>
+              <div className={styles.statCard}><h3>신규 회원</h3><p>5명</p></div>
               <div className={styles.statCard}><h3>미답변 문의</h3><p>2건</p></div>
             </div>
           </section>
@@ -71,20 +75,13 @@ export default function AdminDashboard() {
               <table className={styles.adminTable}>
                 <thead>
                   <tr>
-                    <th>ID</th>
-                    <th>제목</th>
-                    <th>저자</th>
-                    <th>가격</th>
-                    <th>관리</th>
+                    <th>ID</th><th>제목</th><th>저자</th><th>가격</th><th>관리</th>
                   </tr>
                 </thead>
                 <tbody>
                   {filteredBooks.slice(0, 10).map(book => (
                     <tr key={book.id}>
-                      <td>{book.id}</td>
-                      <td>{book.title}</td>
-                      <td>{book.author}</td>
-                      <td>{book.price.toLocaleString()}원</td>
+                      <td>{book.id}</td><td>{book.title}</td><td>{book.author}</td><td>{book.price.toLocaleString()}원</td>
                       <td><button className={styles.editBtn}>수정</button> <button className={styles.delBtn}>삭제</button></td>
                     </tr>
                   ))}
@@ -100,11 +97,7 @@ export default function AdminDashboard() {
             <table className={styles.adminTable}>
               <thead>
                 <tr>
-                  <th>이름</th>
-                  <th>아이디</th>
-                  <th>역할</th>
-                  <th>상태</th>
-                  <th>가입일</th>
+                  <th>이름</th><th>아이디</th><th>역할</th><th>상태</th><th>가입일</th>
                 </tr>
               </thead>
               <tbody>
@@ -115,10 +108,9 @@ export default function AdminDashboard() {
                   <td>활동중</td>
                   <td>2026-04-10</td>
                 </tr>
-                {/* 홍길동 회원 강제 탈퇴 처리 완료 (리스트에서 제거됨) */}
               </tbody>
             </table>
-            <p className={styles.notice}>* 홍길동(user01@naver.com) 회원이 운영 정책에 따라 강제 탈퇴 처리되었습니다.</p>
+            <p className={styles.notice}>* 회원 보호 정책에 따라 관리자에 의한 임의 회원 탈퇴 기능은 제한됩니다.</p>
           </section>
         )}
       </main>
