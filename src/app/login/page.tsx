@@ -12,25 +12,25 @@ export default function LoginPage() {
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
     
-    // 관리자 및 일반 계정 로그인 통합 로직
+    // 관리자 계정 체크
     if (userId === 'bookforestadmin' && password === 'bookforest2026') {
       localStorage.setItem('userRole', '관리자');
       localStorage.setItem('userName', '최고관리자');
       alert('관리자 센터에 접속합니다.');
       router.push('/admin');
     } else if (userId && password) {
-      // 일반 회원 시뮬레이션
+      // 일반 회원 로그인 (Mock)
       localStorage.setItem('userRole', '회원');
       localStorage.setItem('userName', userId);
-      alert(`${userId}님, 환영합니다!`);
+      alert(`${userId}님, 반갑습니다! 책갈피 숲에 오신 것을 환영합니다.`);
       router.push('/');
     } else {
-      alert('아이디와 비밀번호를 모두 입력해주세요.');
+      alert('아이디와 비밀번호를 입력해주세요.');
     }
   };
 
   const handleSocialLogin = (provider: string) => {
-    alert(`${provider} 로그인을 시작합니다. (현재는 아이디 로그인 방식을 권장합니다.)`);
+    alert(`${provider} 간편 로그인을 시작합니다.`);
   };
 
   return (
@@ -43,11 +43,12 @@ export default function LoginPage() {
           <h1>로그인</h1>
           <p className={styles.subtitle}>아이디와 비밀번호를 입력해 주세요.</p>
 
+          {/* 1. 아이디/비밀번호 로그인 */}
           <form className={styles.emailForm} onSubmit={handleLogin}>
             <div className={styles.inputWrapper}>
               <input 
                 type="text" 
-                placeholder="아이디 또는 이메일" 
+                placeholder="아이디 입력" 
                 className={styles.input} 
                 value={userId}
                 onChange={(e) => setUserId(e.target.value)}
@@ -58,7 +59,7 @@ export default function LoginPage() {
             <div className={styles.inputWrapper}>
               <input 
                 type="password" 
-                placeholder="비밀번호" 
+                placeholder="비밀번호 입력" 
                 className={styles.input} 
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
@@ -66,7 +67,7 @@ export default function LoginPage() {
                 autoComplete="current-password"
               />
             </div>
-            <button type="submit" className={styles.submitBtn}>로그인하기</button>
+            <button type="submit" className={styles.submitBtn}>로그인</button>
           </form>
 
           <div className={styles.footerLinks}>
@@ -79,11 +80,12 @@ export default function LoginPage() {
             <span>간편 로그인</span>
           </div>
 
+          {/* 2. 간편 로그인 (소셜) */}
           <div className={styles.socialGroup}>
-            <button className={`${styles.socialBtn} ${styles.kakao}`} onClick={() => handleSocialLogin('kakao')}>
+            <button className={`${styles.socialBtn} ${styles.kakao}`} onClick={() => handleSocialLogin('카카오')}>
               <span className={styles.icon}>🟡</span> 카카오 로그인
             </button>
-            <button className={`${styles.socialBtn} ${styles.naver}`} onClick={() => handleSocialLogin('naver')}>
+            <button className={`${styles.socialBtn} ${styles.naver}`} onClick={() => handleSocialLogin('네이버')}>
               <span className={styles.icon}>🟢</span> 네이버 로그인
             </button>
           </div>
