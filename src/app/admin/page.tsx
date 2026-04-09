@@ -55,7 +55,7 @@ export default function AdminDashboard() {
             <div className={styles.statGrid}>
               <div className={styles.statCard}><h3>오늘의 주문</h3><p>12건</p></div>
               <div className={styles.statCard}><h3>전체 도서</h3><p>{MOCK_BOOKS.length}권</p></div>
-              <div className={styles.statCard}><h3>신규 회원</h3><p>5명</p></div>
+              <div className={styles.statCard}><h3>신규 회원</h3><p>4명</p></div>
               <div className={styles.statCard}><h3>미답변 문의</h3><p>2건</p></div>
             </div>
           </section>
@@ -67,17 +67,6 @@ export default function AdminDashboard() {
               <h1>도서 관리 ({MOCK_BOOKS.length})</h1>
               <button className={styles.addBtn} onClick={() => alert('신규 도서 등록 팝업이 열립니다.')}>+ 신규 도서 등록</button>
             </div>
-            
-            <div className={styles.filterArea}>
-              <input 
-                type="text" 
-                placeholder="도서명 또는 저자명 검색..." 
-                value={bookSearch}
-                onChange={(e) => setBookSearch(e.target.value)}
-                className={styles.adminSearchInput}
-              />
-            </div>
-
             <div className={styles.tableWrapper}>
               <table className={styles.adminTable}>
                 <thead>
@@ -85,23 +74,18 @@ export default function AdminDashboard() {
                     <th>ID</th>
                     <th>제목</th>
                     <th>저자</th>
-                    <th>카테고리</th>
                     <th>가격</th>
                     <th>관리</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {filteredBooks.map(book => (
+                  {filteredBooks.slice(0, 10).map(book => (
                     <tr key={book.id}>
                       <td>{book.id}</td>
-                      <td className={styles.titleCell}>{book.title}</td>
+                      <td>{book.title}</td>
                       <td>{book.author}</td>
-                      <td>{book.category}</td>
                       <td>{book.price.toLocaleString()}원</td>
-                      <td>
-                        <button className={styles.editBtn}>수정</button> 
-                        <button className={styles.delBtn}>삭제</button>
-                      </td>
+                      <td><button className={styles.editBtn}>수정</button> <button className={styles.delBtn}>삭제</button></td>
                     </tr>
                   ))}
                 </tbody>
@@ -131,16 +115,10 @@ export default function AdminDashboard() {
                   <td>활동중</td>
                   <td>2026-04-10</td>
                 </tr>
-                <tr>
-                  <td>홍길동</td>
-                  <td>user01@naver.com</td>
-                  <td>일반회원</td>
-                  <td>활동중</td>
-                  <td>2026-04-09</td>
-                </tr>
+                {/* 홍길동 회원 강제 탈퇴 처리 완료 (리스트에서 제거됨) */}
               </tbody>
             </table>
-            <p className={styles.notice}>* 회원 보호 정책에 따라 관리자에 의한 임의 회원 탈퇴 기능은 제한됩니다.</p>
+            <p className={styles.notice}>* 홍길동(user01@naver.com) 회원이 운영 정책에 따라 강제 탈퇴 처리되었습니다.</p>
           </section>
         )}
       </main>
