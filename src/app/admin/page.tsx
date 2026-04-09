@@ -29,7 +29,7 @@ export default function AdminDashboard() {
         <div className={styles.adminInfo}>
           <h2>🌲 관리자 센터</h2>
           <p>ID: bookforestadmin</p>
-          <span className={styles.roleBadge}>최고 관리자</span>
+          <span className={styles.roleBadge}>관리자</span>
         </div>
         <nav className={styles.adminNav}>
           <button onClick={() => setActiveMenu('summary')} className={activeMenu === 'summary' ? styles.active : ''}>📊 운영 요약</button>
@@ -92,7 +92,7 @@ export default function AdminDashboard() {
                   <th>아이디</th>
                   <th>역할</th>
                   <th>상태</th>
-                  <th>탈퇴 처리</th>
+                  <th>가입일</th>
                 </tr>
               </thead>
               <tbody>
@@ -101,18 +101,18 @@ export default function AdminDashboard() {
                   <td>bookforestadmin</td>
                   <td><strong>관리자</strong></td>
                   <td>활동중</td>
-                  <td><button disabled className={styles.disabledBtn}>탈퇴 불가</button></td>
+                  <td>2026-04-10</td>
                 </tr>
                 <tr>
                   <td>홍길동</td>
                   <td>user01@naver.com</td>
                   <td>일반회원</td>
                   <td>활동중</td>
-                  <td><button className={styles.delBtn}>강제탈퇴</button></td>
+                  <td>2026-04-09</td>
                 </tr>
               </tbody>
             </table>
-            <p className={styles.notice}>* 관리자 계정은 시스템 보호를 위해 본인 및 타인에 의한 탈퇴 처리가 불가능합니다.</p>
+            <p className={styles.notice}>* 회원 보호 정책에 따라 관리자에 의한 임의 회원 탈퇴 기능은 제한됩니다.</p>
           </section>
         )}
       </main>

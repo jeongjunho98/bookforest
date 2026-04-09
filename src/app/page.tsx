@@ -42,11 +42,7 @@ export default function Home() {
                 <div className={styles.bookInfo}>
                   <div className={styles.categoryBadge}>{book.category}</div>
                   <h3 className={styles.bookTitle}>{book.title}</h3>
-                  <p className={styles.author}>{book.author} | {book.publisher}</p>
-                  <div className={styles.ratingRow}>
-                    <span className={styles.stars}>★ {book.rating}</span>
-                    <span className={styles.reviewCount}>({book.reviewCount})</span>
-                  </div>
+                  <p className={styles.author}>{book.author}</p>
                   <div className={styles.priceRow}>
                     <span className={styles.price}>{book.price.toLocaleString()}원</span>
                   </div>
@@ -54,6 +50,24 @@ export default function Home() {
               </Link>
             </div>
           ))}
+        </div>
+      </section>
+
+      {/* 이달의 작가 섹션 (Kyobo Style) */}
+      <section className={styles.authorSection}>
+        <div className="container">
+          <div className={styles.authorFlex}>
+            <div className={styles.authorImage}>
+              <img src="https://images.unsplash.com/photo-1476067848293-997808595ca7?q=80&w=400&h=400&auto=format&fit=crop" alt="한강 작가" />
+            </div>
+            <div className={styles.authorText}>
+              <span className={styles.sectionTag}>EDITOR&apos;S PICK</span>
+              <h2>이달의 작가: 한강</h2>
+              <p>&quot;어떤 어둠 속에서도 우리는 빛을 찾아낼 수 있습니다.&quot;</p>
+              <p className={styles.authorDesc}>2024년 노벨문학상 수상, 현대 한국 문학의 거장 한강 작가의 전 작품을 책갈피 숲에서 만나보세요.</p>
+              <Link href="/search?q=한강"><button className={styles.authorBtn}>한강 작가 도서 보기</button></Link>
+            </div>
+          </div>
         </div>
       </section>
 
