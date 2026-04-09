@@ -1,3 +1,10 @@
+.mainTitle {
+  font-size: 28px;
+  font-weight: 800;
+  margin-bottom: 40px;
+  color: #333;
+}
+
 .checkoutContainer {
   display: flex;
   gap: 40px;
@@ -8,111 +15,223 @@
 }
 
 .rightCol {
-  flex: 0 0 380px;
+  flex: 0 0 320px;
 }
 
 .section {
   background-color: #fff;
+  border: 1px solid #ddd;
   padding: 30px;
-  border-radius: 12px;
-  border: 1px solid #eee;
   margin-bottom: 30px;
+  border-radius: 4px;
 }
 
-.section h3 {
-  font-size: 18px;
+.sectionHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   margin-bottom: 25px;
   padding-bottom: 15px;
-  border-bottom: 1px solid #f5f5f5;
+  border-bottom: 2px solid #333;
 }
 
-.orderForm {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
+.sectionHeader h3 {
+  font-size: 20px;
 }
 
-.inputGroup {
+.requiredInfo {
+  font-size: 13px;
+  color: #ff4d4d;
+}
+
+.inputRow {
   display: flex;
-  flex-direction: column;
+  margin-bottom: 20px;
+  align-items: center;
+}
+
+.inputRow label {
+  width: 120px;
+  font-size: 14px;
+  font-weight: 700;
+  color: #555;
+}
+
+.star {
+  color: #ff4d4d;
+}
+
+.fullInput {
+  flex: 1;
+  padding: 12px;
+  border: 1px solid #ddd;
+  outline: none;
+  font-size: 14px;
+}
+
+.phoneInputGroup {
+  display: flex;
+  align-items: center;
   gap: 8px;
 }
 
-.inputGroup label {
+.phoneInputGroup input {
+  width: 80px;
+  padding: 12px;
+  border: 1px solid #ddd;
+  text-align: center;
+}
+
+.addressGroup {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.zipCodeRow {
+  display: flex;
+  gap: 10px;
+}
+
+.zipCodeRow input {
+  width: 120px;
+  padding: 12px;
+  border: 1px solid #ddd;
+  background-color: #f5f5f5;
+}
+
+.subBtn {
+  padding: 0 20px;
+  background-color: #555;
+  color: #fff;
+  font-size: 13px;
+  border-radius: 2px;
+}
+
+/* 결제수단 그리드 */
+.paymentGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.payMethodBtn {
+  padding: 15px;
+  border: 1px solid #ddd;
+  background-color: #fff;
   font-size: 14px;
-  font-weight: 700;
-  color: #666;
-}
-
-.inputGroup input {
-  padding: 12px 15px;
-  border: 1px solid #eee;
-  border-radius: 6px;
-  outline: none;
-}
-
-.paymentBox {
+  font-weight: 600;
   display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 20px;
-  background-color: #f9fbf9;
-  border-radius: 8px;
+  justify-content: center;
+  gap: 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s;
 }
 
+.payMethodBtn.active {
+  border: 2px solid #2d5a27;
+  color: #2d5a27;
+  background-color: #f9fbf9;
+}
+
+.payIcon {
+  font-size: 18px;
+}
+
+.bankNotice {
+  margin-top: 20px;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.bankNotice strong {
+  color: #2d5a27;
+}
+
+.bankNotice span {
+  display: block;
+  margin-top: 8px;
+  font-size: 12px;
+  color: #888;
+}
+
+/* 요약 카드 */
 .summaryCard {
   background-color: #fff;
+  border: 1px solid #2d5a27;
   padding: 30px;
-  border-radius: 12px;
-  border: 2px solid var(--primary-forest);
   position: sticky;
   top: 100px;
 }
 
-.bookItem {
-  display: flex;
-  gap: 15px;
-  margin-bottom: 25px;
-  padding-bottom: 20px;
+.summaryCard h3 {
+  font-size: 18px;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
   border-bottom: 1px solid #eee;
-}
-
-.smallCover {
-  width: 60px;
-  aspect-ratio: 2/3;
-}
-
-.bookInfo .title {
-  font-size: 14px;
-  font-weight: 700;
-  margin-bottom: 5px;
 }
 
 .priceRow {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 12px;
+  margin-bottom: 15px;
   font-size: 14px;
   color: #666;
 }
 
-.total {
-  margin-top: 20px;
-  padding-top: 20px;
-  border-top: 1px solid #eee;
-  font-size: 18px;
-  font-weight: 800;
-  color: #333;
+.freeText {
+  color: #2d5a27;
+  font-weight: 700;
 }
 
-.payBtn {
-  width: 100%;
-  padding: 18px 0;
-  background-color: var(--primary-forest);
-  color: #fff;
-  border-radius: 8px;
-  font-size: 18px;
-  font-weight: 700;
+.totalRow {
+  display: flex;
+  justify-content: space-between;
   margin-top: 25px;
+  padding-top: 20px;
+  border-top: 1px solid #eee;
+}
+
+.totalRow span {
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.totalPrice {
+  font-size: 24px;
+  color: #ff4d4d;
+}
+
+.finalPayBtn {
+  width: 100%;
+  padding: 20px 0;
+  background-color: #2d5a27;
+  color: #fff;
+  border-radius: 4px;
+  font-size: 18px;
+  font-weight: 800;
+  margin-top: 30px;
   cursor: pointer;
+}
+
+.agreeText {
+  margin-top: 15px;
+  font-size: 12px;
+  color: #999;
+  text-align: center;
+  line-height: 1.4;
+}
+
+@media (max-width: 1024px) {
+  .checkoutContainer {
+    flex-direction: column;
+  }
+  .rightCol {
+    flex: none;
+  }
 }
