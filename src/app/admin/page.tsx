@@ -20,12 +20,8 @@ export default function AdminDashboard() {
   const [bookSearch, setBookSearch] = useState('');
   const [books, setBooks] = useState<Book[]>([]);
   
-  // 주문 데이터 상태 관리
-  const [orders, setOrders] = useState<AdminOrder[]>([
-    { id: 'ORD-20260410-001', user: '김독자', bookTitle: '채식주의자', price: 15000, status: '결제완료', date: '2026-04-10' },
-    { id: 'ORD-20260410-002', user: '이회원', bookTitle: '소년이 온다', price: 14000, status: '입금대기', date: '2026-04-10' },
-    { id: 'ORD-20260409-045', user: '박서점', bookTitle: '아몬드', price: 13000, status: '배송중', date: '2026-04-09' },
-  ]);
+  // 주문 내역 0건으로 초기화 완료
+  const [orders, setOrders] = useState<AdminOrder[]>([]);
 
   const [editingBook, setEditingBook] = useState<Book | null>(null);
   const [editForm, setEditForm] = useState({ title: '', author: '', price: 0 });
@@ -48,7 +44,6 @@ export default function AdminDashboard() {
     router.push('/login');
   };
 
-  // 주문 상태 업데이트 로직 (발송 처리 등)
   const updateOrderStatus = (id: string, newStatus: AdminOrder['status']) => {
     setOrders(prev => prev.map(order => 
       order.id === id ? { ...order, status: newStatus } : order
@@ -56,7 +51,6 @@ export default function AdminDashboard() {
     alert(`주문 [${id}] 상태가 [${newStatus}]로 변경되었습니다.`);
   };
 
-  // 주문 취소 로직 (판매자 임의 취소)
   const handleCancelOrder = (id: string) => {
     if (confirm(`주문 [${id}]을 취소하시겠습니까? 취소 후에는 되돌릴 수 없습니다.`)) {
       updateOrderStatus(id, '주문취소');
@@ -114,7 +108,7 @@ export default function AdminDashboard() {
           <section>
             <h1>운영 요약</h1>
             <div className={styles.statGrid}>
-              <div className={styles.statCard}><h3>오늘의 주문</h3><p>{orders.filter(o => o.date === '2026-04-10' && o.status !== '주문취소').length}건</p></div>
+              <div className={styles.statCard}><h3>오늘의 주문</h3><p>{orders.filter(o => o.status !== '주문취소').length}건</p></div>
               <div className={styles.statCard}><h3>전체 도서</h3><p>{books.length}권</p></div>
               <div className={styles.statCard}><h3>미결제 주문</h3><p>{orders.filter(o => o.status === '입금대기').length}건</p></div>
               <div className={styles.statCard}><h3>미답변 문의</h3><p>2건</p></div>
@@ -122,7 +116,6 @@ export default function AdminDashboard() {
           </section>
         )}
 
-        {/* 도서 관리 (105권 전수 노출 복구 완료) */}
         {activeMenu === 'books' && (
           <section>
             <div className={styles.sectionHeaderFlex}>
@@ -165,34 +158,40 @@ export default function AdminDashboard() {
           <section>
             <h1>주문/배송 관리 ({orders.length})</h1>
             <div className={styles.tableWrapper}>
-              <table className={styles.adminTable}>
-                <thead>
-                  <tr>
-                    <th>주문번호</th><th>주문자</th><th>상품명</th><th>결제금액</th><th>상태</th><th>관리</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {orders.map(order => (
-                    <tr key={order.id}>
-                      <td>{order.id}</td>
-                      <td>{order.user}</td>
-                      <td>{order.bookTitle}</td>
-                      <td>{order.price.toLocaleString()}원</td>
-                      <td><span className={`${styles.statusBadge} ${styles[order.status]}`}>{order.status}</span></td>
-                      <td>
-                        {order.status !== '주문취소' && order.status !== '배송완료' && (
-                          <>
-                            {order.status === '결제완료' && <button className={styles.editBtn} onClick={() => updateOrderStatus(order.id, '배송중')}>발송하기</button>}
-                            {order.status === '입금대기' && <button className={styles.editBtn} onClick={() => updateOrderStatus(order.id, '결제완료')}>입금확인</button>}
-                            {order.status === '배송중' && <button className={styles.editBtn} onClick={() => updateOrderStatus(order.id, '배송완료')}>완료처리</button>}
-                            <button className={styles.delBtn} onClick={() => handleCancelOrder(order.id)}>취소</button>
-                          </>
-                        )}
-                      </td>
+              {orders.length > 0 ? (
+                <table className={styles.adminTable}>
+                  <thead>
+                    <tr>
+                      <th>주문번호</th><th>주문자</th><th>상품명</th><th>결제금액</th><th>상태</th><th>관리</th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
+                  </thead>
+                  <tbody>
+                    {orders.map(order => (
+                      <tr key={order.id}>
+                        <td>{order.id}</td>
+                        <td>{order.user}</td>
+                        <td>{order.bookTitle}</td>
+                        <td>{order.price.toLocaleString()}원</td>
+                        <td><span className={`${styles.statusBadge} ${styles[order.status]}`}>{order.status}</span></td>
+                        <td>
+                          {order.status !== '주문취소' && order.status !== '배송완료' && (
+                            <>
+                              {order.status === '결제완료' && <button className={styles.editBtn} onClick={() => updateOrderStatus(order.id, '배송중')}>발송하기</button>}
+                              {order.status === '입금대기' && <button className={styles.editBtn} onClick={() => updateOrderStatus(order.id, '결제완료')}>입금확인</button>}
+                              {order.status === '배송중' && <button className={styles.editBtn} onClick={() => updateOrderStatus(order.id, '배송완료')}>완료처리</button>}
+                              <button className={styles.delBtn} onClick={() => handleCancelOrder(order.id)}>취소</button>
+                            </>
+                          )}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              ) : (
+                <div style={{ textAlign: 'center', padding: '100px 0', backgroundColor: '#fff', borderRadius: '12px' }}>
+                  <p style={{ color: '#888' }}>접수된 주문 내역이 없습니다.</p>
+                </div>
+              )}
             </div>
           </section>
         )}
