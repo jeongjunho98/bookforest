@@ -17,27 +17,36 @@ export default function BooksPage() {
   useEffect(() => {
     const fetchInitialBooks = async () => {
       setLoading(true);
-      const { books: initialBooks, total: totalCount } = await bookService.getBooks(1, LIMIT);
-      setBooks(initialBooks);
-      setTotal(totalCount);
-      setLoading(false);
+      try {
+        const { books: initialBooks, total: totalCount } = await bookService.getBooks(1, LIMIT);
+        setBooks(initialBooks);
+        setTotal(totalCount);
+      } catch (error) {
+        console.error("Failed to fetch books:", error);
+      } finally {
+        setLoading(false);
+      }
     };
     fetchInitialBooks();
   }, []);
 
-  // 더 보기 기능
+  // 더 보기 기능 활성화
   const handleLoadMore = async () => {
     if (loading) return;
     
     setLoading(true);
     const nextPage = page + 1;
-    const { books: nextBooks } = await bookService.getBooks(nextPage, LIMIT);
-    
-    if (nextBooks.length > 0) {
-      setBooks(prev => [...prev, ...nextBooks]);
-      setPage(nextPage);
+    try {
+      const { books: nextBooks } = await bookService.getBooks(nextPage, LIMIT);
+      if (nextBooks.length > 0) {
+        setBooks(prev => [...prev, ...nextBooks]);
+        setPage(nextPage);
+      }
+    } catch (error) {
+      console.error("Failed to load more books:", error);
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   };
 
   const hasMore = books.length < total;
@@ -74,21 +83,13 @@ export default function BooksPage() {
         ))}
       </div>
       
+      {/* 긴급 복구: 더 많은 도서 불러오기 버튼 */}
       {hasMore && (
         <div style={{ marginTop: '60px', textAlign: 'center' }}>
           <button 
             onClick={handleLoadMore}
             disabled={loading}
-            style={{ 
-              padding: '15px 40px', 
-              border: '1px solid var(--primary-forest)', 
-              borderRadius: '30px',
-              backgroundColor: loading ? '#eee' : '#fff',
-              color: 'var(--primary-forest)',
-              fontWeight: '700',
-              cursor: loading ? 'not-allowed' : 'pointer',
-              transition: 'all 0.2s'
-            }}
+            className={styles.loadMoreBtn}
           >
             {loading ? '숲을 더 깊이 탐색 중...' : '더 많은 도서 불러오기'}
           </button>

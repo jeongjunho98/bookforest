@@ -181,6 +181,29 @@
   color: #8b5a2b;
 }
 
+.loadMoreBtn {
+  padding: 15px 40px; 
+  border: 1px solid #2d5a27; 
+  border-radius: 30px;
+  background-color: #fff;
+  color: #2d5a27;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.loadMoreBtn:hover {
+  background-color: #2d5a27;
+  color: #fff;
+}
+
+.loadMoreBtn:disabled {
+  background-color: #eee;
+  border-color: #ccc;
+  color: #999;
+  cursor: not-allowed;
+}
+
 .newBooksSection {
   padding: 60px 0;
   background-color: #f9fbf9;
