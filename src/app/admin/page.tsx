@@ -2,14 +2,20 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import styles from "./admin.module.css";
-import { MOCK_BOOKS } from "@/data/mockBooks";
+import { MOCK_BOOKS as INITIAL_BOOKS, Book } from "@/data/mockBooks";
 
 export default function AdminDashboard() {
   const router = useRouter();
   const [activeMenu, setActiveMenu] = useState('summary');
   const [bookSearch, setBookSearch] = useState('');
+  const [books, setBooks] = useState<Book[]>([]);
 
-  // 관리자 권한 체크 (시뮬레이션)
+  // 초기 도서 데이터 로드
+  useEffect(() => {
+    setBooks(INITIAL_BOOKS);
+  }, []);
+
+  // 관리자 권한 체크
   useEffect(() => {
     const userRole = localStorage.getItem('userRole');
     if (userRole !== '관리자') {
@@ -24,7 +30,26 @@ export default function AdminDashboard() {
     router.push('/login');
   };
 
-  const filteredBooks = MOCK_BOOKS.filter(book => 
+  // 도서 삭제 로직
+  const handleDeleteBook = (id: string) => {
+    if (confirm('정말로 이 도서를 삭제하시겠습니까?')) {
+      setBooks(prev => prev.filter(book => book.id !== id));
+      alert('도서가 삭제되었습니다.');
+    }
+  };
+
+  // 도서 수정 로직 (시뮬레이션)
+  const handleEditBook = (id: string) => {
+    const newTitle = prompt('새로운 도서 제목을 입력하세요:');
+    if (newTitle) {
+      setBooks(prev => prev.map(book => 
+        book.id === id ? { ...book, title: newTitle } : book
+      ));
+      alert('도서 정보가 수정되었습니다.');
+    }
+  };
+
+  const filteredBooks = books.filter(book => 
     book.title.toLowerCase().includes(bookSearch.toLowerCase()) ||
     book.author.toLowerCase().includes(bookSearch.toLowerCase())
   );
@@ -57,7 +82,7 @@ export default function AdminDashboard() {
             <h1>운영 요약</h1>
             <div className={styles.statGrid}>
               <div className={styles.statCard}><h3>오늘의 주문</h3><p>12건</p></div>
-              <div className={styles.statCard}><h3>전체 도서</h3><p>{MOCK_BOOKS.length}권</p></div>
+              <div className={styles.statCard}><h3>전체 도서</h3><p>{books.length}권</p></div>
               <div className={styles.statCard}><h3>신규 회원</h3><p>5명</p></div>
               <div className={styles.statCard}><h3>미답변 문의</h3><p>2건</p></div>
             </div>
@@ -67,7 +92,7 @@ export default function AdminDashboard() {
         {activeMenu === 'books' && (
           <section>
             <div className={styles.sectionHeaderFlex}>
-              <h1>도서 관리 ({MOCK_BOOKS.length})</h1>
+              <h1>도서 관리 ({books.length})</h1>
               <button className={styles.addBtn} onClick={() => alert('신규 도서 등록 팝업이 열립니다.')}>+ 신규 도서 등록</button>
             </div>
 
@@ -98,8 +123,14 @@ export default function AdminDashboard() {
                 <tbody>
                   {filteredBooks.map(book => (
                     <tr key={book.id}>
-                      <td>{book.id}</td><td>{book.title}</td><td>{book.author}</td><td>{book.price.toLocaleString()}원</td>
-                      <td><button className={styles.editBtn}>수정</button> <button className={styles.delBtn}>삭제</button></td>
+                      <td>{book.id}</td>
+                      <td>{book.title}</td>
+                      <td>{book.author}</td>
+                      <td>{book.price.toLocaleString()}원</td>
+                      <td>
+                        <button className={styles.editBtn} onClick={() => handleEditBook(book.id)}>수정</button> 
+                        <button className={styles.delBtn} onClick={() => handleDeleteBook(book.id)}>삭제</button>
+                      </td>
                     </tr>
                   ))}
                 </tbody>
