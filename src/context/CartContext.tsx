@@ -20,7 +20,6 @@ const CartContext = createContext<CartContextType | undefined>(undefined);
 export function CartProvider({ children }: { children: React.ReactNode }) {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
 
-  // 로컬 스토리지에서 장바구니 불러오기
   useEffect(() => {
     const savedCart = localStorage.getItem('bookforest-cart');
     if (savedCart) {
@@ -28,7 +27,6 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     }
   }, []);
 
-  // 장바구니 변경 시 로컬 스토리지 저장
   useEffect(() => {
     localStorage.setItem('bookforest-cart', JSON.stringify(cartItems));
   }, [cartItems]);
@@ -37,12 +35,10 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     setCartItems(prev => {
       const existingItem = prev.find(item => item.id === book.id);
       if (existingItem) {
-        alert('이미 장바구니에 담긴 도서입니다. 수량을 추가했습니다.');
         return prev.map(item => 
           item.id === book.id ? { ...item, quantity: item.quantity + 1 } : item
         );
       }
-      alert('장바구니에 도서가 담겼습니다.');
       return [...prev, { ...book, quantity: 1 }];
     });
   };

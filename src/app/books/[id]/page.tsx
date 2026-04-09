@@ -17,8 +17,13 @@ export default function BookDetailPage() {
     notFound();
   }
 
+  const handleAddToCart = () => {
+    addToCart(book);
+    alert('장바구니에 도서가 담겼습니다. 장바구니로 이동합니다.');
+    router.push('/cart');
+  };
+
   const handleBuyNow = () => {
-    // 바로구매 시 체크아웃 페이지로 도서 ID를 전달하며 이동
     router.push(`/checkout?bookId=${book.id}`);
   };
 
@@ -48,7 +53,7 @@ export default function BookDetailPage() {
               <span className={styles.price}>{book.price.toLocaleString()}원</span>
             </div>
             <div className={styles.buttonGroup}>
-              <button className={styles.cartBtn} onClick={() => addToCart(book)}>
+              <button className={styles.cartBtn} onClick={handleAddToCart}>
                 장바구니 담기
               </button>
               <button className={styles.buyBtn} onClick={handleBuyNow}>
