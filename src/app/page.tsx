@@ -2,6 +2,7 @@ import styles from "./page.module.css";
 import Link from "next/link";
 import SearchBar from "@/components/Search/SearchBar";
 import { MOCK_BOOKS } from "@/data/mockBooks";
+import BookImage from "@/components/Common/BookImage";
 
 export default function Home() {
   const bestSellers = MOCK_BOOKS.filter(b => b.isBest).slice(0, 10);
@@ -27,7 +28,7 @@ export default function Home() {
             <h2>🌲 숲의 베스트셀러</h2>
             <p>지금 가장 많은 독자들이 숲에서 찾은 책들입니다.</p>
           </div>
-          <Link href="/search?q=" className={styles.moreLink}>전체보기 →</Link>
+          <Link href="/books" className={styles.moreLink}>전체보기 →</Link>
         </div>
         
         <div className={styles.bookGrid}>
@@ -35,7 +36,7 @@ export default function Home() {
             <div key={book.id} className={styles.bookCard}>
               <Link href={`/books/${book.id}`}>
                 <div className={styles.imageWrapper}>
-                  <img src={book.coverImage} alt={book.title} className={styles.realCover} />
+                  <BookImage src={book.coverImage} alt={book.title} className={styles.realCover} />
                   <div className={styles.rankBadge}>{index + 1}</div>
                 </div>
                 <div className={styles.bookInfo}>
@@ -70,7 +71,7 @@ export default function Home() {
               <div key={book.id} className={styles.bookCard}>
                 <Link href={`/books/${book.id}`}>
                   <div className={styles.imageWrapper}>
-                    <img src={book.coverImage} alt={book.title} className={styles.realCover} />
+                    <BookImage src={book.coverImage} alt={book.title} className={styles.realCover} />
                   </div>
                   <div className={styles.bookInfo}>
                     <h3 className={styles.bookTitle}>{book.title}</h3>
