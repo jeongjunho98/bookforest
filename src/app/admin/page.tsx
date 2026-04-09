@@ -18,12 +18,6 @@ export default function AdminDashboard() {
     }
   }, [router]);
 
-  const handleLogout = () => {
-    localStorage.removeItem('userRole');
-    localStorage.removeItem('userName');
-    router.push('/login');
-  };
-
   const filteredBooks = MOCK_BOOKS.filter(book => 
     book.title.toLowerCase().includes(bookSearch.toLowerCase()) ||
     book.author.toLowerCase().includes(bookSearch.toLowerCase())
@@ -31,7 +25,7 @@ export default function AdminDashboard() {
 
   return (
     <div className={styles.adminContainer}>
-      {/* 사이드바 */}
+      {/* 사이드바 (로그아웃 버튼 제거 완료) */}
       <aside className={styles.sidebar}>
         <div className={styles.adminInfo}>
           <h2>🌲 관리자 센터</h2>
@@ -48,10 +42,9 @@ export default function AdminDashboard() {
           <button onClick={() => setActiveMenu('orders')} className={activeMenu === 'orders' ? styles.active : ''}>🚚 주문/배송 관리</button>
           <button onClick={() => setActiveMenu('users')} className={activeMenu === 'users' ? styles.active : ''}>👥 회원 관리</button>
         </nav>
-        <button onClick={handleLogout} className={styles.logoutBtn}>관리자 로그아웃</button>
       </aside>
 
-      {/* 메인 콘텐츠 (기존 로직 유지) */}
+      {/* 메인 콘텐츠 */}
       <main className={styles.mainContent}>
         {activeMenu === 'summary' && (
           <section>
