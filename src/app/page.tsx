@@ -4,6 +4,9 @@ import SearchBar from "@/components/Search/SearchBar";
 import { MOCK_BOOKS } from "@/data/mockBooks";
 
 export default function Home() {
+  const bestSellers = MOCK_BOOKS.filter(b => b.isBest).slice(0, 10);
+  const newBooks = MOCK_BOOKS.slice(10, 20);
+
   return (
     <div>
       <section className={styles.hero}>
@@ -14,22 +17,25 @@ export default function Home() {
         </div>
       </section>
 
+      {/* 베스트셀러 섹션 */}
       <section className={`container ${styles.section}`}>
         <div className={styles.sectionHeader}>
           <div className={styles.titleArea}>
-            <h2>이달의 숲 선정 도서</h2>
-            <p>책갈피 숲이 큐레이션한 이달의 추천 도서들입니다.</p>
+            <h2>🌲 숲의 베스트셀러</h2>
+            <p>지금 가장 많은 독자들이 숲에서 찾은 책들입니다.</p>
           </div>
-          <Link href="/books" className={styles.moreLink}>모두 보기 →</Link>
+          <Link href="/search?q=" className={styles.moreLink}>전체보기 →</Link>
         </div>
         
         <div className={styles.bookGrid}>
-          {MOCK_BOOKS.map((book) => (
+          {bestSellers.map((book, index) => (
             <div key={book.id} className={styles.bookCard}>
               <Link href={`/books/${book.id}`}>
-                <div className={styles.bookCover}>
-                  {book.title} 표지
-                </div>                <div className={styles.bookInfo}>
+                <div className={styles.imageWrapper}>
+                  <img src={book.coverImage} alt={book.title} className={styles.realCover} />
+                  <div className={styles.rankBadge}>{index + 1}</div>
+                </div>
+                <div className={styles.bookInfo}>
                   <div className={styles.categoryBadge}>{book.category}</div>
                   <h3 className={styles.bookTitle}>{book.title}</h3>
                   <p className={styles.author}>{book.author} | {book.publisher}</p>
@@ -40,15 +46,40 @@ export default function Home() {
                   <div className={styles.priceRow}>
                     <span className={styles.price}>{book.price.toLocaleString()}원</span>
                   </div>
-                  <div className={styles.tagRow}>
-                    {book.tags.slice(0, 2).map(tag => (
-                      <span key={tag} className={styles.tag}>#{tag}</span>
-                    ))}
-                  </div>
                 </div>
               </Link>
             </div>
           ))}
+        </div>
+      </section>
+
+      {/* 신간 섹션 */}
+      <section className={styles.newBooksSection}>
+        <div className="container">
+          <div className={styles.sectionHeader}>
+            <div className={styles.titleArea}>
+              <h2>🍃 숲에 막 도착한 책</h2>
+              <p>숲의 신선함을 담은 새로운 도서들을 만나보세요.</p>
+            </div>
+          </div>
+          <div className={styles.bookGrid}>
+            {newBooks.map((book) => (
+              <div key={book.id} className={styles.bookCard}>
+                <Link href={`/books/${book.id}`}>
+                  <div className={styles.imageWrapper}>
+                    <img src={book.coverImage} alt={book.title} className={styles.realCover} />
+                  </div>
+                  <div className={styles.bookInfo}>
+                    <h3 className={styles.bookTitle}>{book.title}</h3>
+                    <p className={styles.author}>{book.author}</p>
+                    <div className={styles.priceRow}>
+                      <span className={styles.price}>{book.price.toLocaleString()}원</span>
+                    </div>
+                  </div>
+                </Link>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
     </div>
