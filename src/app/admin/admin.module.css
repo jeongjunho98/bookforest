@@ -1,0 +1,143 @@
+.adminContainer {
+  display: flex;
+  min-height: 100vh;
+  background-color: #f4f7f6;
+}
+
+.sidebar {
+  width: 260px;
+  background-color: #2d5a27;
+  color: #fff;
+  padding: 40px 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.adminInfo {
+  margin-bottom: 40px;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  padding-bottom: 20px;
+}
+
+.adminInfo h2 {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.roleBadge {
+  display: inline-block;
+  background-color: #f1c40f;
+  color: #333;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 800;
+  margin-top: 10px;
+}
+
+.adminNav {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex: 1;
+}
+
+.adminNav button {
+  text-align: left;
+  padding: 15px;
+  color: rgba(255,255,255,0.7);
+  border-radius: 8px;
+  font-size: 15px;
+  transition: all 0.3s;
+}
+
+.adminNav button:hover, .adminNav button.active {
+  background-color: rgba(255,255,255,0.1);
+  color: #fff;
+}
+
+.logoutBtn {
+  margin-top: 40px;
+  padding: 12px;
+  border: 1px solid rgba(255,255,255,0.3);
+  color: #fff;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.mainContent {
+  flex: 1;
+  padding: 60px;
+}
+
+.mainContent h1 {
+  font-size: 28px;
+  margin-bottom: 40px;
+}
+
+.statGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+.statCard {
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+.statCard h3 {
+  font-size: 14px;
+  color: #888;
+  margin-bottom: 10px;
+}
+
+.statCard p {
+  font-size: 24px;
+  font-weight: 800;
+  color: #2d5a27;
+}
+
+.adminTable {
+  width: 100%;
+  background-color: #fff;
+  border-collapse: collapse;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+.adminTable th, .adminTable td {
+  padding: 18px;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+}
+
+.adminTable th {
+  background-color: #f9fbf9;
+  font-size: 14px;
+  color: #666;
+}
+
+.editBtn {
+  color: #3498db;
+  font-weight: 700;
+}
+
+.delBtn {
+  color: #e74c3c;
+  font-weight: 700;
+}
+
+.disabledBtn {
+  color: #ccc;
+  cursor: not-allowed;
+}
+
+.notice {
+  margin-top: 20px;
+  font-size: 13px;
+  color: #e74c3c;
+}
