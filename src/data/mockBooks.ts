@@ -133,17 +133,17 @@ export const MOCK_BOOKS: Book[] = [
   }
 ];
 
-// 6번부터 105번까지 실제 도서 데이터로 채움
+// 개정판 꼬리표 삭제 및 105권 전수 매칭
 for (let i = 6; i <= 105; i++) {
   const data = REAL_BOOKS_DATA[(i - 6) % REAL_BOOKS_DATA.length];
   MOCK_BOOKS.push({
     id: i.toString(),
-    title: i > 30 ? `${data.title} (개정판 ${i})` : data.title,
+    title: data.title, // 개정판 텍스트 제거 완료
     author: data.author,
     publisher: data.publisher,
     publishDate: "2023-01-01",
     price: data.price,
-    description: `${data.title}의 정식 출판본입니다. 베스트셀러 스테디셀러로 많은 사랑을 받고 있습니다.`,
+    description: `${data.title}의 정식 출판본입니다. 많은 독자들에게 사랑받는 베스트셀러입니다.`,
     category: data.cat,
     coverImage: VALID_IMAGES[i % 10],
     rating: 4.0 + (Math.random() * 1.0),
