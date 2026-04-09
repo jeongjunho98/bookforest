@@ -7,6 +7,7 @@ import { MOCK_BOOKS } from "@/data/mockBooks";
 export default function AdminDashboard() {
   const router = useRouter();
   const [activeMenu, setActiveMenu] = useState('summary');
+  const [bookSearch, setBookSearch] = useState('');
 
   // 관리자 권한 체크 (시뮬레이션)
   useEffect(() => {
@@ -19,8 +20,14 @@ export default function AdminDashboard() {
 
   const handleLogout = () => {
     localStorage.removeItem('userRole');
+    localStorage.removeItem('userName');
     router.push('/login');
   };
+
+  const filteredBooks = MOCK_BOOKS.filter(book => 
+    book.title.toLowerCase().includes(bookSearch.toLowerCase()) ||
+    book.author.toLowerCase().includes(bookSearch.toLowerCase())
+  );
 
   return (
     <div className={styles.adminContainer}>
@@ -56,29 +63,50 @@ export default function AdminDashboard() {
 
         {activeMenu === 'books' && (
           <section>
-            <h1>도서 관리</h1>
-            <table className={styles.adminTable}>
-              <thead>
-                <tr>
-                  <th>ID</th>
-                  <th>제목</th>
-                  <th>저자</th>
-                  <th>가격</th>
-                  <th>관리</th>
-                </tr>
-              </thead>
-              <tbody>
-                {MOCK_BOOKS.slice(0, 10).map(book => (
-                  <tr key={book.id}>
-                    <td>{book.id}</td>
-                    <td>{book.title}</td>
-                    <td>{book.author}</td>
-                    <td>{book.price.toLocaleString()}원</td>
-                    <td><button className={styles.editBtn}>수정</button> <button className={styles.delBtn}>삭제</button></td>
+            <div className={styles.sectionHeaderFlex}>
+              <h1>도서 관리 ({MOCK_BOOKS.length})</h1>
+              <button className={styles.addBtn} onClick={() => alert('신규 도서 등록 팝업이 열립니다.')}>+ 신규 도서 등록</button>
+            </div>
+            
+            <div className={styles.filterArea}>
+              <input 
+                type="text" 
+                placeholder="도서명 또는 저자명 검색..." 
+                value={bookSearch}
+                onChange={(e) => setBookSearch(e.target.value)}
+                className={styles.adminSearchInput}
+              />
+            </div>
+
+            <div className={styles.tableWrapper}>
+              <table className={styles.adminTable}>
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>제목</th>
+                    <th>저자</th>
+                    <th>카테고리</th>
+                    <th>가격</th>
+                    <th>관리</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {filteredBooks.map(book => (
+                    <tr key={book.id}>
+                      <td>{book.id}</td>
+                      <td className={styles.titleCell}>{book.title}</td>
+                      <td>{book.author}</td>
+                      <td>{book.category}</td>
+                      <td>{book.price.toLocaleString()}원</td>
+                      <td>
+                        <button className={styles.editBtn}>수정</button> 
+                        <button className={styles.delBtn}>삭제</button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </section>
         )}
 
