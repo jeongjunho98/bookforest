@@ -5,11 +5,20 @@ import Link from "next/link";
 
 export default function AccountRecoveryPage() {
   const [activeTab, setActiveTab] = useState<'id' | 'password'>('id');
+  const [userId, setUserId] = useState('');
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const type = activeTab === 'id' ? '아이디' : '비밀번호';
-    alert(`입력하신 정보로 ${type} 찾기를 요청했습니다. (초기 개발 상태이므로 실제 메일은 발송되지 않습니다.)`);
+    if (activeTab === 'id') {
+      alert('입력하신 정보로 아이디 찾기를 요청했습니다.');
+    } else {
+      // 관리자 계정 시뮬레이션
+      if (userId === 'bookforestadmin') {
+        alert('아이디 [bookforestadmin]에 등록된 이메일(jeongjunho9804@gmail.com)로 임시 비밀번호가 발송되었습니다.');
+      } else {
+        alert('입력하신 아이디에 등록된 이메일 주소로 임시 비밀번호가 발송되었습니다.');
+      }
+    }
   };
 
   return (
@@ -38,7 +47,7 @@ export default function AccountRecoveryPage() {
           <p className={styles.subtitle}>
             {activeTab === 'id' 
               ? '가입 시 등록한 이름과 휴대폰 번호를 입력해주세요.' 
-              : '가입 시 등록한 아이디(이메일)를 입력해주세요.'}
+              : '가입 시 등록한 아이디를 입력해주세요. 등록된 이메일로 임시 비밀번호를 보내드립니다.'}
           </p>
 
           <form className={styles.recoveryForm} onSubmit={handleSubmit}>
@@ -55,8 +64,15 @@ export default function AccountRecoveryPage() {
               </>
             ) : (
               <div className={styles.inputGroup}>
-                <label>아이디 (이메일)</label>
-                <input type="email" placeholder="example@bookforest.com" className={styles.input} required />
+                <label>아이디</label>
+                <input 
+                  type="text" 
+                  placeholder="아이디 입력" 
+                  className={styles.input} 
+                  required 
+                  value={userId}
+                  onChange={(e) => setUserId(e.target.value)}
+                />
               </div>
             )}
             <button type="submit" className={styles.submitBtn}>
