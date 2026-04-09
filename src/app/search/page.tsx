@@ -1,10 +1,11 @@
 "use client";
 import { useSearchParams } from "next/navigation";
 import { MOCK_BOOKS } from "@/data/mockBooks";
-import styles from "../page.module.css"; // 기존 그리드 스타일 재사용
+import styles from "../page.module.css";
 import Link from "next/link";
 import SearchBar from "@/components/Search/SearchBar";
 import { Suspense } from "react";
+import BookImage from "@/components/Common/BookImage";
 
 function SearchResults() {
   const searchParams = useSearchParams();
@@ -30,7 +31,9 @@ function SearchResults() {
           {filteredBooks.map((book) => (
             <div key={book.id} className={styles.bookCard}>
               <Link href={`/books/${book.id}`}>
-                <div className={styles.bookCover}>{book.title} 표지</div>
+                <div className={styles.imageWrapper}>
+                  <BookImage src={book.coverImage} alt={book.title} className={styles.realCover} />
+                </div>
                 <div className={styles.bookInfo}>
                   <div className={styles.categoryBadge}>{book.category}</div>
                   <h3 className={styles.bookTitle}>{book.title}</h3>

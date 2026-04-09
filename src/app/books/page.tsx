@@ -2,6 +2,7 @@ import { MOCK_BOOKS } from "@/data/mockBooks";
 import styles from "../page.module.css";
 import Link from "next/link";
 import SearchBar from "@/components/Search/SearchBar";
+import BookImage from "@/components/Common/BookImage";
 
 export default function BooksPage() {
   return (
@@ -21,7 +22,7 @@ export default function BooksPage() {
           <div key={book.id} className={styles.bookCard}>
             <Link href={`/books/${book.id}`}>
               <div className={styles.imageWrapper}>
-                <img src={book.coverImage} alt={book.title} className={styles.realCover} />
+                <BookImage src={book.coverImage} alt={book.title} className={styles.realCover} />
               </div>
               <div className={styles.bookInfo}>
                 <div className={styles.categoryBadge}>{book.category}</div>
