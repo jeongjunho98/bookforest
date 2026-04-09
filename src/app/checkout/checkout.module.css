@@ -1,0 +1,118 @@
+.checkoutContainer {
+  display: flex;
+  gap: 40px;
+}
+
+.leftCol {
+  flex: 1;
+}
+
+.rightCol {
+  flex: 0 0 380px;
+}
+
+.section {
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 12px;
+  border: 1px solid #eee;
+  margin-bottom: 30px;
+}
+
+.section h3 {
+  font-size: 18px;
+  margin-bottom: 25px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #f5f5f5;
+}
+
+.orderForm {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.inputGroup label {
+  font-size: 14px;
+  font-weight: 700;
+  color: #666;
+}
+
+.inputGroup input {
+  padding: 12px 15px;
+  border: 1px solid #eee;
+  border-radius: 6px;
+  outline: none;
+}
+
+.paymentBox {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 20px;
+  background-color: #f9fbf9;
+  border-radius: 8px;
+}
+
+.summaryCard {
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 12px;
+  border: 2px solid var(--primary-forest);
+  position: sticky;
+  top: 100px;
+}
+
+.bookItem {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 25px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #eee;
+}
+
+.smallCover {
+  width: 60px;
+  aspect-ratio: 2/3;
+}
+
+.bookInfo .title {
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 5px;
+}
+
+.priceRow {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  font-size: 14px;
+  color: #666;
+}
+
+.total {
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid #eee;
+  font-size: 18px;
+  font-weight: 800;
+  color: #333;
+}
+
+.payBtn {
+  width: 100%;
+  padding: 18px 0;
+  background-color: var(--primary-forest);
+  color: #fff;
+  border-radius: 8px;
+  font-size: 18px;
+  font-weight: 700;
+  margin-top: 25px;
+  cursor: pointer;
+}

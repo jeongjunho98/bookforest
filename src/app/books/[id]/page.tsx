@@ -1,11 +1,13 @@
 "use client";
 import { MOCK_BOOKS } from "@/data/mockBooks";
 import styles from "./page.module.css";
-import { notFound, useParams } from "next/navigation";
+import { notFound, useParams, useRouter } from "next/navigation";
 import { useCart } from "@/context/CartContext";
+import BookImage from "@/components/Common/BookImage";
 
 export default function BookDetailPage() {
   const params = useParams();
+  const router = useRouter();
   const { addToCart } = useCart();
   
   const id = params.id as string;
@@ -15,14 +17,18 @@ export default function BookDetailPage() {
     notFound();
   }
 
+  const handleBuyNow = () => {
+    // 바로구매 시 체크아웃 페이지로 도서 ID를 전달하며 이동
+    router.push(`/checkout?bookId=${book.id}`);
+  };
+
   return (
     <div className="container">
       <div className={styles.detailContainer}>
-        {/* 상단: 도서 기본 정보 섹션 */}
         <div className={styles.topSection}>
           <div className={styles.coverWrapper}>
             <div className={styles.bookCover}>
-              {book.title} 표지
+              <BookImage src={book.coverImage} alt={book.title} className={styles.detailImage} />
             </div>
           </div>
           <div className={styles.infoWrapper}>
@@ -45,7 +51,9 @@ export default function BookDetailPage() {
               <button className={styles.cartBtn} onClick={() => addToCart(book)}>
                 장바구니 담기
               </button>
-              <button className={styles.buyBtn}>바로 구매</button>
+              <button className={styles.buyBtn} onClick={handleBuyNow}>
+                바로 구매
+              </button>
             </div>
             <div className={styles.tagList}>
               {book.tags.map(tag => (
@@ -55,7 +63,6 @@ export default function BookDetailPage() {
           </div>
         </div>
 
-        {/* 하단: 상세 설명 및 리뷰 섹션 */}
         <div className={styles.bottomSection}>
           <nav className={styles.tabNav}>
             <button className={styles.activeTab}>도서 소개</button>

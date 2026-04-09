@@ -1,6 +1,12 @@
+"use client";
 import styles from './customer.module.css';
 
 export default function CustomerCenterPage() {
+  const handleKakaoTalk = () => {
+    alert('카카오톡 상담 채널로 연결합니다. (채널명: 책갈피 숲)');
+    window.open('https://pf.kakao.com', '_blank');
+  };
+
   return (
     <div className="container" style={{ padding: '80px 0' }}>
       <div style={{ textAlign: 'center', marginBottom: '60px' }}>
@@ -17,7 +23,10 @@ export default function CustomerCenterPage() {
         <div style={{ padding: '40px', border: '1px solid #eee', borderRadius: '15px', backgroundColor: '#fff' }}>
           <h3 style={{ marginBottom: '15px' }}>💬 실시간 숲 톡</h3>
           <p>카카오톡에서 &quot;책갈피 숲&quot;을 검색해 주세요.</p>
-          <button style={{ marginTop: '20px', width: '100%', padding: '15px', backgroundColor: '#FEE500', border: 'none', borderRadius: '8px', fontWeight: '700' }}>
+          <button 
+            onClick={handleKakaoTalk}
+            style={{ marginTop: '20px', width: '100%', padding: '15px', backgroundColor: '#FEE500', border: 'none', borderRadius: '8px', fontWeight: '700', cursor: 'pointer' }}
+          >
             카카오톡 상담 시작
           </button>
         </div>
