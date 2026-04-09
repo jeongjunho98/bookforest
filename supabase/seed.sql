@@ -1,4 +1,4 @@
--- 최신 버전 도서 데이터 주입 (105권 실제 도서 기반)
+-- 최신 버전 도서 데이터 주입 (105권 실제 도서 기반, 개정판 태그 제거됨)
 
 TRUNCATE TABLE books CASCADE;
 
@@ -31,7 +31,7 @@ BEGIN
    FOR i IN 6..105 LOOP
       INSERT INTO books (title, author, publisher, publish_date, price, description, category, cover_image, rating, review_count, tags, is_best)
       VALUES (
-         titles[(i-6)%25 + 1] || CASE WHEN i > 30 THEN ' (개정판 ' || i || ')' ELSE '' END,
+         titles[(i-6)%25 + 1], -- 개정판 태그 완전 제거
          authors[(i-6)%25 + 1],
          '북포레스트 출판',
          '2023-01-01',
@@ -46,3 +46,17 @@ BEGIN
       );
    END LOOP;
 END $$;
+
+-- 관리자 프로필 정보 업데이트
+INSERT INTO profiles (id, user_login_id, email, name, role, phone, created_at)
+VALUES (
+  '00000000-0000-0000-0000-000000000000',
+  'bookforestadmin',
+  'jeongjunho9804@gmail.com',
+  '정준호',
+  '관리자',
+  '010-4851-7984',
+  timezone('utc'::text, now())
+) ON CONFLICT (user_login_id) DO UPDATE SET 
+  phone = '010-4851-7984',
+  email = 'jeongjunho9804@gmail.com';
