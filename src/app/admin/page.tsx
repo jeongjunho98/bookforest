@@ -18,6 +18,12 @@ export default function AdminDashboard() {
     }
   }, [router]);
 
+  const handleLogout = () => {
+    localStorage.removeItem('userRole');
+    localStorage.removeItem('userName');
+    router.push('/login');
+  };
+
   const filteredBooks = MOCK_BOOKS.filter(book => 
     book.title.toLowerCase().includes(bookSearch.toLowerCase()) ||
     book.author.toLowerCase().includes(bookSearch.toLowerCase())
@@ -25,7 +31,7 @@ export default function AdminDashboard() {
 
   return (
     <div className={styles.adminContainer}>
-      {/* 사이드바 (로그아웃 버튼 제거 완료) */}
+      {/* 사이드바 */}
       <aside className={styles.sidebar}>
         <div className={styles.adminInfo}>
           <h2>🌲 관리자 센터</h2>
@@ -64,6 +70,24 @@ export default function AdminDashboard() {
               <h1>도서 관리 ({MOCK_BOOKS.length})</h1>
               <button className={styles.addBtn} onClick={() => alert('신규 도서 등록 팝업이 열립니다.')}>+ 신규 도서 등록</button>
             </div>
+
+            <div style={{ marginBottom: '20px' }}>
+              <input 
+                type="text" 
+                placeholder="도서명 또는 저자명 검색..." 
+                value={bookSearch}
+                onChange={(e) => setBookSearch(e.target.value)}
+                style={{
+                  width: '100%',
+                  maxWidth: '400px',
+                  padding: '12px 15px',
+                  border: '1px solid #ddd',
+                  borderRadius: '4px',
+                  fontSize: '14px'
+                }}
+              />
+            </div>
+
             <div className={styles.tableWrapper}>
               <table className={styles.adminTable}>
                 <thead>
@@ -72,7 +96,7 @@ export default function AdminDashboard() {
                   </tr>
                 </thead>
                 <tbody>
-                  {filteredBooks.slice(0, 10).map(book => (
+                  {filteredBooks.map(book => (
                     <tr key={book.id}>
                       <td>{book.id}</td><td>{book.title}</td><td>{book.author}</td><td>{book.price.toLocaleString()}원</td>
                       <td><button className={styles.editBtn}>수정</button> <button className={styles.delBtn}>삭제</button></td>
